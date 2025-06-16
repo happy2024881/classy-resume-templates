@@ -33,7 +33,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
       </div>
       
       <div className="border rounded-lg overflow-hidden bg-gray-100 p-4">
-        <div className="transform scale-50 origin-top-left" style={{ height: '55%' }}>
+        <div className="transform scale-75 origin-top-left bg-white shadow-lg" style={{ width: '133.33%', height: '133.33%' }}>
           <TemplateComponent data={data} />
         </div>
       </div>

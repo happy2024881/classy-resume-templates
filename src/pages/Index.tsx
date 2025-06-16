@@ -115,8 +115,8 @@ const Index = () => {
               </div>
             </TabsContent>
 
-            {/* Preview Section */}
-            <TabsContent value="preview" className="lg:col-span-7 space-y-0">
+            {/* Preview Section for mobile */}
+            <TabsContent value="preview" className="lg:col-span-7 space-y-0 lg:hidden">
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <ResumePreview data={resumeData} selectedTemplate={selectedTemplate} />
               </div>
