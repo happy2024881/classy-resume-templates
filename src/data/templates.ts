@@ -10,6 +10,11 @@ import { ElegantTemplate } from '@/components/templates/ElegantTemplate';
 import { CompactTemplate } from '@/components/templates/CompactTemplate';
 import { InfographicTemplate } from '@/components/templates/InfographicTemplate';
 import { AcademicTemplate } from '@/components/templates/AcademicTemplate';
+import { ProfessionalTemplate } from '@/components/templates/ProfessionalTemplate';
+import { CreativeBlueTemplate } from '@/components/templates/CreativeBlueTemplate';
+import { TwoColumnTemplate } from '@/components/templates/TwoColumnTemplate';
+import { BoldTemplate } from '@/components/templates/BoldTemplate';
+import { TimelineTemplate } from '@/components/templates/TimelineTemplate';
 
 export const templates: Template[] = [
   {
@@ -71,5 +76,35 @@ export const templates: Template[] = [
     name: 'Academic',
     description: 'Traditional format ideal for academic and research positions',
     component: AcademicTemplate
+  },
+  {
+    id: 'professional',
+    name: 'Professional',
+    description: 'Clean business layout with blue accents and structured sections',
+    component: ProfessionalTemplate
+  },
+  {
+    id: 'creative-blue',
+    name: 'Creative Blue',
+    description: 'Modern design with colorful icons and blue gradient header',
+    component: CreativeBlueTemplate
+  },
+  {
+    id: 'two-column',
+    name: 'Two Column',
+    description: 'Dark sidebar with contact info and skills, clean main content area',
+    component: TwoColumnTemplate
+  },
+  {
+    id: 'bold',
+    name: 'Bold',
+    description: 'High-contrast black design that makes a strong statement',
+    component: BoldTemplate
+  },
+  {
+    id: 'timeline',
+    name: 'Timeline',
+    description: 'Career timeline layout showing professional progression visually',
+    component: TimelineTemplate
   }
 ];
