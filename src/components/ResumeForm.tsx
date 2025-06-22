@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,11 +15,32 @@ interface ResumeFormProps {
 }
 
 export const ResumeForm: React.FC<ResumeFormProps> = ({ data, onChange }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const updatePersonalInfo = (field: string, value: string) => {
     onChange({
       ...data,
       personalInfo: { ...data.personalInfo, [field]: value }
     });
+  };
+
+  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        updatePersonalInfo('photo', result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removePhoto = () => {
+    updatePersonalInfo('photo', '');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const addExperience = () => {
@@ -122,6 +142,53 @@ export const ResumeForm: React.FC<ResumeFormProps> = ({ data, onChange }) => {
           <CardTitle>Personal Information</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
+          {/* Photo Upload Section */}
+          <div className="space-y-4">
+            <Label>Profile Photo (Optional)</Label>
+            <div className="flex items-center space-x-4">
+              {data.personalInfo.photo ? (
+                <div className="relative">
+                  <img
+                    src={data.personalInfo.photo}
+                    alt="Profile"
+                    className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
+                  />
+                  <Button
+                    onClick={removePhoto}
+                    size="sm"
+                    variant="destructive"
+                    className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </div>
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center">
+                  <span className="text-gray-400 text-xs">No Photo</span>
+                </div>
+              )}
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  className="hidden"
+                />
+                <Button
+                  onClick={() => fileInputRef.current?.click()}
+                  variant="outline"
+                  size="sm"
+                >
+                  Upload Photo
+                </Button>
+                <p className="text-xs text-gray-500 mt-1">
+                  Recommended: 400x400px, JPG or PNG
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="fullName">Full Name</Label>

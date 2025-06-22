@@ -11,17 +11,30 @@ export const ProfessionalTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-white p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black">
       {/* Header */}
       <div className="border-b-4 border-blue-600 pb-6 mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{data.personalInfo.fullName}</h1>
-        <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
-          <div>
-            <div>{data.personalInfo.email}</div>
-            <div>{data.personalInfo.phone}</div>
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">{data.personalInfo.fullName}</h1>
+            <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
+              <div>
+                <div>{data.personalInfo.email}</div>
+                <div>{data.personalInfo.phone}</div>
+              </div>
+              <div>
+                <div>{data.personalInfo.location}</div>
+                {data.personalInfo.linkedIn && <div>{data.personalInfo.linkedIn}</div>}
+                {data.personalInfo.website && <div>{data.personalInfo.website}</div>}
+              </div>
+            </div>
           </div>
-          <div>
-            <div>{data.personalInfo.location}</div>
-            {data.personalInfo.linkedIn && <div>{data.personalInfo.linkedIn}</div>}
-            {data.personalInfo.website && <div>{data.personalInfo.website}</div>}
-          </div>
+          {data.personalInfo.photo && (
+            <div className="ml-6">
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-24 h-24 rounded-full object-cover border-4 border-blue-600"
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -57,9 +70,7 @@ export const ProfessionalTemplate: React.FC<TemplateProps> = ({ data }) => {
           )}
         </div>
 
-        {/* Right Column - Education & Skills */}
         <div className="space-y-6">
-          {/* Education */}
           {data.education.length > 0 && (
             <div>
               <h2 className="text-lg font-bold text-blue-600 mb-3 uppercase tracking-wide">Education</h2>
@@ -75,7 +86,6 @@ export const ProfessionalTemplate: React.FC<TemplateProps> = ({ data }) => {
             </div>
           )}
 
-          {/* Skills */}
           {data.skills.length > 0 && (
             <div>
               <h2 className="text-lg font-bold text-blue-600 mb-3 uppercase tracking-wide">Skills</h2>
