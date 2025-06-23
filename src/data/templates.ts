@@ -34,6 +34,16 @@ import { VintageTemplate } from '@/components/templates/VintageTemplate';
 import { CrystalTemplate } from '@/components/templates/CrystalTemplate';
 import { InkTemplate } from '@/components/templates/InkTemplate';
 import { LuxuryTemplate } from '@/components/templates/LuxuryTemplate';
+import { SunsetTemplate } from '@/components/templates/SunsetTemplate';
+import { StarlightTemplate } from '@/components/templates/StarlightTemplate';
+import { ForestTemplate } from '@/components/templates/ForestTemplate';
+import { NeonPunkTemplate } from '@/components/templates/NeonPunkTemplate';
+import { AutumnTemplate } from '@/components/templates/AutumnTemplate';
+import { MidnightTemplate } from '@/components/templates/MidnightTemplate';
+import { CorporateTemplate } from '@/components/templates/CorporateTemplate';
+import { SakuraTemplate } from '@/components/templates/SakuraTemplate';
+import { UrbanTemplate } from '@/components/templates/UrbanTemplate';
+import { ArcticTemplate } from '@/components/templates/ArcticTemplate';
 
 export const templates: Template[] = [
   {
@@ -245,5 +255,65 @@ export const templates: Template[] = [
     name: 'Luxury',
     description: 'Premium luxury design with gold accents and elegant typography',
     component: LuxuryTemplate
+  },
+  {
+    id: 'sunset',
+    name: 'Sunset',
+    description: 'Warm sunset gradient with golden hour vibes and beautiful color transitions',
+    component: SunsetTemplate
+  },
+  {
+    id: 'starlight',
+    name: 'Starlight',
+    description: 'Cosmic starry night theme with twinkling effects and deep space colors',
+    component: StarlightTemplate
+  },
+  {
+    id: 'forest',
+    name: 'Forest',
+    description: 'Deep forest theme with rich greens and natural woodland atmosphere',
+    component: ForestTemplate
+  },
+  {
+    id: 'neon-punk',
+    name: 'Neon Punk',
+    description: 'Cyberpunk aesthetic with neon grids, terminal styling, and retro-futuristic design',
+    component: NeonPunkTemplate
+  },
+  {
+    id: 'autumn',
+    name: 'Autumn',
+    description: 'Warm autumn colors with fall-inspired palette and cozy seasonal vibes',
+    component: AutumnTemplate
+  },
+  {
+    id: 'midnight',
+    name: 'Midnight',
+    description: 'Deep midnight blue theme with elegant dark tones and subtle star effects',
+    component: MidnightTemplate
+  },
+  {
+    id: 'corporate',
+    name: 'Corporate',
+    description: 'Professional corporate design with clean lines and business-focused layout',
+    component: CorporateTemplate
+  },
+  {
+    id: 'sakura',
+    name: 'Sakura',
+    description: 'Japanese cherry blossom theme with delicate pink tones and floral elements',
+    component: SakuraTemplate
+  },
+  {
+    id: 'urban',
+    name: 'Urban',
+    description: 'Modern city-inspired design with industrial colors and metropolitan styling',
+    component: UrbanTemplate
+  },
+  {
+    id: 'arctic',
+    name: 'Arctic',
+    description: 'Cool arctic theme with ice-blue tones and crisp winter atmosphere',
+    component: ArcticTemplate
   }
 ];
