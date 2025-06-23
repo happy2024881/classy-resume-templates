@@ -73,7 +73,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-2">Professional Resume Builder</h1>
-            <p className="text-lg text-gray-600">Create stunning resumes with our collection of 15 professional templates</p>
+            <p className="text-lg text-gray-600">Create stunning resumes with our collection of 25 professional templates</p>
           </div>
         </div>
       </div>

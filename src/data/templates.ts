@@ -15,6 +15,16 @@ import { CreativeBlueTemplate } from '@/components/templates/CreativeBlueTemplat
 import { TwoColumnTemplate } from '@/components/templates/TwoColumnTemplate';
 import { BoldTemplate } from '@/components/templates/BoldTemplate';
 import { TimelineTemplate } from '@/components/templates/TimelineTemplate';
+import { VibrantTemplate } from '@/components/templates/VibrantTemplate';
+import { NeonTemplate } from '@/components/templates/NeonTemplate';
+import { RetroTemplate } from '@/components/templates/RetroTemplate';
+import { GlassTemplate } from '@/components/templates/GlassTemplate';
+import { PastelTemplate } from '@/components/templates/PastelTemplate';
+import { DarkModeTemplate } from '@/components/templates/DarkModeTemplate';
+import { WatercolorTemplate } from '@/components/templates/WatercolorTemplate';
+import { GeometricTemplate } from '@/components/templates/GeometricTemplate';
+import { ArtisticTemplate } from '@/components/templates/ArtisticTemplate';
+import { MonochromeTemplate } from '@/components/templates/MonochromeTemplate';
 
 export const templates: Template[] = [
   {
@@ -106,5 +116,65 @@ export const templates: Template[] = [
     name: 'Timeline',
     description: 'Career timeline layout showing professional progression visually',
     component: TimelineTemplate
+  },
+  {
+    id: 'vibrant',
+    name: 'Vibrant',
+    description: 'Eye-catching gradient background with colorful glass-morphism effects',
+    component: VibrantTemplate
+  },
+  {
+    id: 'neon',
+    name: 'Neon',
+    description: 'Futuristic cyberpunk-inspired design with neon colors and terminal aesthetics',
+    component: NeonTemplate
+  },
+  {
+    id: 'retro',
+    name: 'Retro',
+    description: 'Vintage-inspired design with warm colors and playful typography',
+    component: RetroTemplate
+  },
+  {
+    id: 'glass',
+    name: 'Glass',
+    description: 'Modern glassmorphism effect with beautiful gradient backgrounds',
+    component: GlassTemplate
+  },
+  {
+    id: 'pastel',
+    name: 'Pastel',
+    description: 'Soft, dreamy design with gentle pastel colors and rounded elements',
+    component: PastelTemplate
+  },
+  {
+    id: 'dark-mode',
+    name: 'Dark Mode',
+    description: 'Sleek dark theme with colorful accents perfect for tech professionals',
+    component: DarkModeTemplate
+  },
+  {
+    id: 'watercolor',
+    name: 'Watercolor',
+    description: 'Artistic design with watercolor-inspired background elements',
+    component: WatercolorTemplate
+  },
+  {
+    id: 'geometric',
+    name: 'Geometric',
+    description: 'Bold design with geometric shapes and modern angular elements',
+    component: GeometricTemplate
+  },
+  {
+    id: 'artistic',
+    name: 'Artistic',
+    description: 'Creative template with artistic elements and vibrant gradient backgrounds',
+    component: ArtisticTemplate
+  },
+  {
+    id: 'monochrome',
+    name: 'Monochrome',
+    description: 'Bold black and white design with strong typography and high contrast',
+    component: MonochromeTemplate
   }
 ];
