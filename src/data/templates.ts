@@ -1,4 +1,3 @@
-
 import { Template } from '@/types/resume';
 import { ClassicTemplate } from '@/components/templates/ClassicTemplate';
 import { ModernTemplate } from '@/components/templates/ModernTemplate';
@@ -25,6 +24,16 @@ import { WatercolorTemplate } from '@/components/templates/WatercolorTemplate';
 import { GeometricTemplate } from '@/components/templates/GeometricTemplate';
 import { ArtisticTemplate } from '@/components/templates/ArtisticTemplate';
 import { MonochromeTemplate } from '@/components/templates/MonochromeTemplate';
+import { GradientTemplate } from '@/components/templates/GradientTemplate';
+import { MaterialTemplate } from '@/components/templates/MaterialTemplate';
+import { NatureTemplate } from '@/components/templates/NatureTemplate';
+import { NeonCityTemplate } from '@/components/templates/NeonCityTemplate';
+import { OceanTemplate } from '@/components/templates/OceanTemplate';
+import { GalacticTemplate } from '@/components/templates/GalacticTemplate';
+import { VintageTemplate } from '@/components/templates/VintageTemplate';
+import { CrystalTemplate } from '@/components/templates/CrystalTemplate';
+import { InkTemplate } from '@/components/templates/InkTemplate';
+import { LuxuryTemplate } from '@/components/templates/LuxuryTemplate';
 
 export const templates: Template[] = [
   {
@@ -176,5 +185,65 @@ export const templates: Template[] = [
     name: 'Monochrome',
     description: 'Bold black and white design with strong typography and high contrast',
     component: MonochromeTemplate
+  },
+  {
+    id: 'gradient',
+    name: 'Gradient',
+    description: 'Modern gradient design with glassmorphism effects and colorful icons',
+    component: GradientTemplate
+  },
+  {
+    id: 'material',
+    name: 'Material',
+    description: 'Material Design inspired layout with clean cards and colorful accents',
+    component: MaterialTemplate
+  },
+  {
+    id: 'nature',
+    name: 'Nature',
+    description: 'Nature-inspired design with organic shapes and earth tones',
+    component: NatureTemplate
+  },
+  {
+    id: 'neon-city',
+    name: 'Neon City',
+    description: 'Cyberpunk cityscape with neon grids and futuristic terminal styling',
+    component: NeonCityTemplate
+  },
+  {
+    id: 'ocean',
+    name: 'Ocean',
+    description: 'Deep ocean theme with wave patterns and aquatic color palette',
+    component: OceanTemplate
+  },
+  {
+    id: 'galactic',
+    name: 'Galactic',
+    description: 'Space-themed design with cosmic gradients and stellar elements',
+    component: GalacticTemplate
+  },
+  {
+    id: 'vintage',
+    name: 'Vintage',
+    description: 'Classic vintage design with ornate borders and serif typography',
+    component: VintageTemplate
+  },
+  {
+    id: 'crystal',
+    name: 'Crystal',
+    description: 'Crystalline design with prismatic effects and clean aesthetics',
+    component: CrystalTemplate
+  },
+  {
+    id: 'ink',
+    name: 'Ink',
+    description: 'Bold ink-inspired design with strong contrast and artistic splatter effects',
+    component: InkTemplate
+  },
+  {
+    id: 'luxury',
+    name: 'Luxury',
+    description: 'Premium luxury design with gold accents and elegant typography',
+    component: LuxuryTemplate
   }
 ];
