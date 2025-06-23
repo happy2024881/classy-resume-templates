@@ -11,17 +11,30 @@ export const ExecutiveTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-white p-10 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black">
       {/* Header */}
       <div className="text-center mb-8 border-b-4 border-gray-800 pb-6">
-        <h1 className="text-4xl font-bold mb-2">{data.personalInfo.fullName}</h1>
-        <div className="text-sm text-gray-600 mb-2">
-          {data.personalInfo.email} • {data.personalInfo.phone} • {data.personalInfo.location}
-        </div>
-        {(data.personalInfo.linkedIn || data.personalInfo.website) && (
-          <div className="text-sm text-gray-600">
-            {data.personalInfo.linkedIn && <span>{data.personalInfo.linkedIn}</span>}
-            {data.personalInfo.website && data.personalInfo.linkedIn && <span> • </span>}
-            {data.personalInfo.website && <span>{data.personalInfo.website}</span>}
+        <div className="flex items-center justify-center space-x-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-2">{data.personalInfo.fullName}</h1>
+            <div className="text-sm text-gray-600 mb-2">
+              {data.personalInfo.email} • {data.personalInfo.phone} • {data.personalInfo.location}
+            </div>
+            {(data.personalInfo.linkedIn || data.personalInfo.website) && (
+              <div className="text-sm text-gray-600">
+                {data.personalInfo.linkedIn && <span>{data.personalInfo.linkedIn}</span>}
+                {data.personalInfo.website && data.personalInfo.linkedIn && <span> • </span>}
+                {data.personalInfo.website && <span>{data.personalInfo.website}</span>}
+              </div>
+            )}
           </div>
-        )}
+          {data.personalInfo.photo && (
+            <div>
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-24 h-24 rounded object-cover border-4 border-gray-800"
+              />
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Executive Summary */}

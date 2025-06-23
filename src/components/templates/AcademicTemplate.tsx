@@ -11,13 +11,26 @@ export const AcademicTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-white p-10 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-serif font-bold mb-2">{data.personalInfo.fullName}</h1>
-        <hr className="w-1/3 mx-auto border-t-2 border-gray-400 mb-3" />
-        <div className="text-sm text-gray-700 space-y-1">
-          <div>{data.personalInfo.email} | {data.personalInfo.phone}</div>
-          <div>{data.personalInfo.location}</div>
-          {data.personalInfo.linkedIn && <div>{data.personalInfo.linkedIn}</div>}
-          {data.personalInfo.website && <div>{data.personalInfo.website}</div>}
+        <div className="flex items-center justify-center space-x-6">
+          <div className="text-center">
+            <h1 className="text-3xl font-serif font-bold mb-2">{data.personalInfo.fullName}</h1>
+            <hr className="w-1/3 mx-auto border-t-2 border-gray-400 mb-3" />
+            <div className="text-sm text-gray-700 space-y-1">
+              <div>{data.personalInfo.email} | {data.personalInfo.phone}</div>
+              <div>{data.personalInfo.location}</div>
+              {data.personalInfo.linkedIn && <div>{data.personalInfo.linkedIn}</div>}
+              {data.personalInfo.website && <div>{data.personalInfo.website}</div>}
+            </div>
+          </div>
+          {data.personalInfo.photo && (
+            <div>
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-20 h-20 rounded object-cover border-2 border-gray-400"
+              />
+            </div>
+          )}
         </div>
       </div>
 

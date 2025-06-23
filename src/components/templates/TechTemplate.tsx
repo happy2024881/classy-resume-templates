@@ -11,14 +11,25 @@ export const TechTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-gray-900 text-green-400 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg font-mono">
       {/* Header */}
       <div className="border border-green-400 p-4 mb-6">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-2">{data.personalInfo.fullName}</h1>
-          <div className="text-sm text-green-300">
-            <div>{data.personalInfo.email} | {data.personalInfo.phone}</div>
-            <div>{data.personalInfo.location}</div>
-            {data.personalInfo.linkedIn && <div>{data.personalInfo.linkedIn}</div>}
-            {data.personalInfo.website && <div>{data.personalInfo.website}</div>}
+        <div className="flex items-center justify-between">
+          <div className="text-center flex-1">
+            <h1 className="text-3xl font-bold mb-2">{data.personalInfo.fullName}</h1>
+            <div className="text-sm text-green-300">
+              <div>{data.personalInfo.email} | {data.personalInfo.phone}</div>
+              <div>{data.personalInfo.location}</div>
+              {data.personalInfo.linkedIn && <div>{data.personalInfo.linkedIn}</div>}
+              {data.personalInfo.website && <div>{data.personalInfo.website}</div>}
+            </div>
           </div>
+          {data.personalInfo.photo && (
+            <div className="ml-4">
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-20 h-20 rounded object-cover border-2 border-green-400"
+              />
+            </div>
+          )}
         </div>
       </div>
 

@@ -11,21 +11,34 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-white p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black">
       {/* Header */}
       <div className="text-center border-b-2 border-gray-800 pb-4 mb-6">
-        <h1 className="text-3xl font-bold uppercase tracking-wide">{data.personalInfo.fullName}</h1>
-        <div className="mt-2 text-sm space-x-4">
-          <span>{data.personalInfo.email}</span>
-          <span>•</span>
-          <span>{data.personalInfo.phone}</span>
-          <span>•</span>
-          <span>{data.personalInfo.location}</span>
-        </div>
-        {(data.personalInfo.linkedIn || data.personalInfo.website) && (
-          <div className="mt-1 text-sm space-x-4">
-            {data.personalInfo.linkedIn && <span>{data.personalInfo.linkedIn}</span>}
-            {data.personalInfo.website && data.personalInfo.linkedIn && <span>•</span>}
-            {data.personalInfo.website && <span>{data.personalInfo.website}</span>}
+        <div className="flex items-center justify-center space-x-6">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold uppercase tracking-wide">{data.personalInfo.fullName}</h1>
+            <div className="mt-2 text-sm space-x-4">
+              <span>{data.personalInfo.email}</span>
+              <span>•</span>
+              <span>{data.personalInfo.phone}</span>
+              <span>•</span>
+              <span>{data.personalInfo.location}</span>
+            </div>
+            {(data.personalInfo.linkedIn || data.personalInfo.website) && (
+              <div className="mt-1 text-sm space-x-4">
+                {data.personalInfo.linkedIn && <span>{data.personalInfo.linkedIn}</span>}
+                {data.personalInfo.website && data.personalInfo.linkedIn && <span>•</span>}
+                {data.personalInfo.website && <span>{data.personalInfo.website}</span>}
+              </div>
+            )}
           </div>
-        )}
+          {data.personalInfo.photo && (
+            <div>
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-20 h-20 rounded-full object-cover border-2 border-gray-800"
+              />
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Summary */}

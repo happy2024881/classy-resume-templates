@@ -11,13 +11,26 @@ export const MinimalTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-white p-12 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black font-light">
       {/* Header */}
       <div className="mb-12">
-        <h1 className="text-5xl font-thin mb-4 tracking-wide">{data.personalInfo.fullName}</h1>
-        <div className="text-sm text-gray-600 space-y-1">
-          <div>{data.personalInfo.email}</div>
-          <div>{data.personalInfo.phone}</div>
-          <div>{data.personalInfo.location}</div>
-          {data.personalInfo.linkedIn && <div>{data.personalInfo.linkedIn}</div>}
-          {data.personalInfo.website && <div>{data.personalInfo.website}</div>}
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-5xl font-thin mb-4 tracking-wide">{data.personalInfo.fullName}</h1>
+            <div className="text-sm text-gray-600 space-y-1">
+              <div>{data.personalInfo.email}</div>
+              <div>{data.personalInfo.phone}</div>
+              <div>{data.personalInfo.location}</div>
+              {data.personalInfo.linkedIn && <div>{data.personalInfo.linkedIn}</div>}
+              {data.personalInfo.website && <div>{data.personalInfo.website}</div>}
+            </div>
+          </div>
+          {data.personalInfo.photo && (
+            <div className="ml-8">
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-24 h-24 rounded object-cover"
+              />
+            </div>
+          )}
         </div>
       </div>
 
