@@ -54,16 +54,6 @@ import { TimelineBWTemplate } from '@/components/templates/TimelineBWTemplate';
 import { GridBWTemplate } from '@/components/templates/GridBWTemplate';
 import { SimpleBWTemplate } from '@/components/templates/SimpleBWTemplate';
 import { TypewriterBWTemplate } from '@/components/templates/TypewriterBWTemplate';
-import { WatercolorTemplate } from '@/components/templates/WatercolorTemplate';
-import { GeometricTemplate } from '@/components/templates/GeometricTemplate';
-import { ArtisticTemplate } from '@/components/templates/ArtisticTemplate';
-import { MonochromeTemplate } from '@/components/templates/MonochromeTemplate';
-import { GradientTemplate } from '@/components/templates/GradientTemplate';
-import { MaterialTemplate } from '@/components/templates/MaterialTemplate';
-import { NatureTemplate } from '@/components/templates/NatureTemplate';
-import { NeonCityTemplate } from '@/components/templates/NeonCityTemplate';
-import { OceanTemplate } from '@/components/templates/OceanTemplate';
-import { GalacticTemplate } from '@/components/templates/GalacticTemplate';
 
 export const templates: Template[] = [
   {
