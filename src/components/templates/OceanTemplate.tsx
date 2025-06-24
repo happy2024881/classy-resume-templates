@@ -8,90 +8,121 @@ interface TemplateProps {
 
 export const OceanTemplate: React.FC<TemplateProps> = ({ data }) => {
   return (
-    <div className="bg-gradient-to-br from-blue-900 via-blue-700 to-teal-600 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-white relative overflow-hidden">
-      {/* Wave Background */}
+    <div className="bg-gradient-to-b from-blue-900 via-blue-800 to-teal-900 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-white relative overflow-hidden">
+      {/* Ocean wave patterns */}
       <div className="absolute inset-0 opacity-20">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-full">
-          <path d="M0,40 Q300,10 600,40 T1200,40 L1200,120 L0,120 Z" fill="currentColor"/>
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path d="M0,20 Q25,10 50,20 T100,20 L100,0 L0,0 Z" fill="currentColor"/>
+          <path d="M0,40 Q25,30 50,40 T100,40 L100,0 L0,0 Z" fill="currentColor" opacity="0.5"/>
+          <path d="M0,60 Q25,50 50,60 T100,60 L100,0 L0,0 Z" fill="currentColor" opacity="0.3"/>
         </svg>
       </div>
-
-      {/* Header */}
-      <div className="relative bg-white/20 backdrop-blur-lg rounded-3xl p-6 mb-6 border border-white/30 shadow-lg">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold mb-2 text-cyan-100 drop-shadow-lg">{data.personalInfo.fullName}</h1>
-            <div className="text-sm space-y-1 text-blue-200">
-              <div className="flex items-center"><span className="mr-2">🌊</span>{data.personalInfo.email}</div>
-              <div className="flex items-center"><span className="mr-2">🐚</span>{data.personalInfo.phone}</div>
-              <div className="flex items-center"><span className="mr-2">🏝️</span>{data.personalInfo.location}</div>
-              {data.personalInfo.linkedIn && <div className="flex items-center"><span className="mr-2">⚓</span>{data.personalInfo.linkedIn}</div>}
-              {data.personalInfo.website && <div className="flex items-center"><span className="mr-2">🌊</span>{data.personalInfo.website}</div>}
+      
+      {/* Floating elements */}
+      <div className="absolute top-20 right-20 w-16 h-16 bg-cyan-400/20 rounded-full blur-lg animate-pulse"></div>
+      <div className="absolute bottom-32 left-16 w-12 h-12 bg-teal-400/20 rounded-full blur-md animate-pulse" style={{animationDelay: '1s'}}></div>
+      <div className="absolute top-1/2 right-1/4 w-8 h-8 bg-blue-400/20 rounded-full blur-sm animate-pulse" style={{animationDelay: '2s'}}></div>
+      
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="backdrop-blur-lg bg-white/10 rounded-3xl p-8 border border-white/20 shadow-xl">
+            <h1 className="text-5xl font-bold mb-6 text-cyan-100 drop-shadow-lg">{data.personalInfo.fullName}</h1>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div className="backdrop-blur-md bg-white/10 rounded-2xl p-3 border border-white/20 flex items-center justify-center">
+                <span className="text-2xl mr-2">🌊</span>
+                {data.personalInfo.email}
+              </div>
+              <div className="backdrop-blur-md bg-white/10 rounded-2xl p-3 border border-white/20 flex items-center justify-center">
+                <span className="text-2xl mr-2">🐚</span>
+                {data.personalInfo.phone}
+              </div>
+              <div className="backdrop-blur-md bg-white/10 rounded-2xl p-3 border border-white/20 flex items-center justify-center">
+                <span className="text-2xl mr-2">🏝️</span>
+                {data.personalInfo.location}
+              </div>
             </div>
-          </div>
-          {data.personalInfo.photo && (
-            <div className="ml-6">
-              <img
-                src={data.personalInfo.photo}
-                alt="Profile"
-                className="w-24 h-24 rounded-full object-cover border-4 border-white/50 shadow-lg"
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Summary */}
-      {data.personalInfo.summary && (
-        <div className="relative mb-6">
-          <h2 className="text-2xl font-bold mb-3 text-cyan-200 flex items-center">
-            <span className="mr-2">🌺</span>About Me
-          </h2>
-          <div className="bg-white/15 backdrop-blur-lg rounded-2xl p-4 border border-white/20 shadow-lg">
-            <p className="text-sm leading-relaxed text-white/90">{data.personalInfo.summary}</p>
-          </div>
-        </div>
-      )}
-
-      <div className="grid grid-cols-3 gap-6 relative">
-        {/* Experience */}
-        <div className="col-span-2">
-          {data.experience.length > 0 && (
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-4 text-cyan-200 flex items-center">
-                <span className="mr-2">🚢</span>Experience
-              </h2>
-              {data.experience.map((exp) => (
-                <div key={exp.id} className="bg-white/15 backdrop-blur-lg rounded-2xl p-4 mb-4 border border-white/20 shadow-lg">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-lg text-white">{exp.jobTitle}</h3>
-                    <span className="text-sm bg-teal-500/30 backdrop-blur-sm border border-teal-300 px-3 py-1 rounded-full text-teal-100">
-                      {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
-                    </span>
+            {(data.personalInfo.linkedIn || data.personalInfo.website) && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-4">
+                {data.personalInfo.linkedIn && (
+                  <div className="backdrop-blur-md bg-white/10 rounded-2xl p-3 border border-white/20 flex items-center justify-center">
+                    <span className="text-2xl mr-2">🐟</span>
+                    {data.personalInfo.linkedIn}
                   </div>
-                  <div className="font-semibold mb-2 text-teal-200">{exp.company} • {exp.location}</div>
-                  {exp.description && (
-                    <p className="text-sm leading-relaxed text-white/85">{exp.description}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+                )}
+                {data.personalInfo.website && (
+                  <div className="backdrop-blur-md bg-white/10 rounded-2xl p-3 border border-white/20 flex items-center justify-center">
+                    <span className="text-2xl mr-2">🔱</span>
+                    {data.personalInfo.website}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="space-y-6">
+        {/* Summary */}
+        {data.personalInfo.summary && (
+          <div className="mb-8">
+            <div className="backdrop-blur-lg bg-white/10 rounded-3xl p-6 border border-white/20 shadow-xl">
+              <h2 className="text-2xl font-bold mb-4 text-cyan-200 flex items-center">
+                <span className="text-3xl mr-3">🌊</span>
+                About Me
+              </h2>
+              <p className="text-sm leading-relaxed text-blue-100">{data.personalInfo.summary}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Experience */}
+        {data.experience.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold mb-6 text-center text-cyan-200 flex items-center justify-center">
+              <span className="text-3xl mr-3">⚓</span>
+              Career Voyage
+            </h2>
+            {data.experience.map((exp, index) => (
+              <div key={exp.id} className="mb-6">
+                <div className="backdrop-blur-lg bg-white/10 rounded-3xl p-6 border border-white/20 shadow-xl relative overflow-hidden">
+                  <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${
+                    index % 3 === 0 ? 'from-cyan-400 to-blue-400' :
+                    index % 3 === 1 ? 'from-blue-400 to-teal-400' :
+                    'from-teal-400 to-cyan-400'
+                  }`}></div>
+                  <div className="pt-2">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-lg font-bold text-cyan-100">{exp.jobTitle}</h3>
+                      <span className="text-sm backdrop-blur-md bg-white/20 rounded-full px-4 py-2 border border-white/20">
+                        {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
+                      </span>
+                    </div>
+                    <div className="text-teal-200 font-semibold mb-3 flex items-center">
+                      <span className="text-xl mr-2">🏢</span>
+                      {exp.company} • {exp.location}
+                    </div>
+                    {exp.description && (
+                      <p className="text-sm leading-relaxed text-blue-100">{exp.description}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 gap-6">
           {/* Education */}
           {data.education.length > 0 && (
-            <div>
+            <div className="backdrop-blur-lg bg-white/10 rounded-3xl p-6 border border-white/20 shadow-xl">
               <h2 className="text-xl font-bold mb-4 text-cyan-200 flex items-center">
-                <span className="mr-2">🎓</span>Education
+                <span className="text-2xl mr-3">🎓</span>
+                Education
               </h2>
               {data.education.map((edu) => (
-                <div key={edu.id} className="bg-white/15 backdrop-blur-lg rounded-2xl p-4 mb-4 border border-white/20 shadow-lg">
-                  <h3 className="font-bold text-white">{edu.degree}</h3>
+                <div key={edu.id} className="mb-4 p-4 backdrop-blur-md bg-white/5 rounded-2xl border border-white/10">
+                  <h3 className="font-bold text-cyan-100">{edu.degree}</h3>
                   <div className="text-sm text-teal-200">{edu.school}</div>
-                  <div className="text-sm text-blue-200">{edu.location}</div>
-                  <div className="text-sm text-blue-200">{edu.graduationDate}</div>
+                  <div className="text-sm text-blue-200">{edu.location} • {edu.graduationDate}</div>
                   {edu.gpa && <div className="text-sm text-blue-200">GPA: {edu.gpa}</div>}
                 </div>
               ))}
@@ -100,20 +131,20 @@ export const OceanTemplate: React.FC<TemplateProps> = ({ data }) => {
 
           {/* Skills */}
           {data.skills.length > 0 && (
-            <div>
+            <div className="backdrop-blur-lg bg-white/10 rounded-3xl p-6 border border-white/20 shadow-xl">
               <h2 className="text-xl font-bold mb-4 text-cyan-200 flex items-center">
-                <span className="mr-2">⭐</span>Skills
+                <span className="text-2xl mr-3">⚡</span>
+                Skills
               </h2>
-              <div className="space-y-2">
-                {data.skills.map((skill) => (
-                  <div key={skill.id} className="bg-white/15 backdrop-blur-lg rounded-2xl p-3 border border-white/20 shadow-lg">
-                    <div className="flex justify-between">
-                      <span className="font-medium text-white">{skill.name}</span>
-                      <span className="text-sm bg-teal-500/30 backdrop-blur-sm border border-teal-300 px-2 py-1 rounded-full text-teal-100">
-                        {skill.level}
-                      </span>
-                    </div>
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {data.skills.map((skill, index) => (
+                  <span key={skill.id} className={`backdrop-blur-md bg-white/15 border border-white/20 px-3 py-1 rounded-full text-sm font-medium ${
+                    index % 3 === 0 ? 'text-cyan-200' :
+                    index % 3 === 1 ? 'text-teal-200' :
+                    'text-blue-200'
+                  }`}>
+                    {skill.name}
+                  </span>
                 ))}
               </div>
             </div>

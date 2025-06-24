@@ -8,84 +8,113 @@ interface TemplateProps {
 
 export const NatureTemplate: React.FC<TemplateProps> = ({ data }) => {
   return (
-    <div className="bg-gradient-to-br from-green-50 to-emerald-100 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-gray-800">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-green-400 to-emerald-500 text-white rounded-3xl p-6 mb-6 shadow-lg">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold mb-2 drop-shadow-lg">{data.personalInfo.fullName}</h1>
-            <div className="text-sm space-y-1 text-green-100">
-              <div className="flex items-center"><span className="mr-2">🌿</span>{data.personalInfo.email}</div>
-              <div className="flex items-center"><span className="mr-2">🍃</span>{data.personalInfo.phone}</div>
-              <div className="flex items-center"><span className="mr-2">🌱</span>{data.personalInfo.location}</div>
-              {data.personalInfo.linkedIn && <div className="flex items-center"><span className="mr-2">🌳</span>{data.personalInfo.linkedIn}</div>}
-              {data.personalInfo.website && <div className="flex items-center"><span className="mr-2">🌿</span>{data.personalInfo.website}</div>}
+    <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-gray-800 relative overflow-hidden">
+      {/* Nature-inspired background elements */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-green-200/20 to-emerald-200/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-teal-200/20 to-green-200/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/3 left-1/3 w-32 h-32 bg-gradient-to-r from-emerald-300/10 to-green-300/10 rounded-full blur-2xl"></div>
+      
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="backdrop-blur-sm bg-white/60 rounded-3xl p-8 border border-green-200/50 shadow-lg">
+            <h1 className="text-4xl font-bold mb-4 text-green-800">{data.personalInfo.fullName}</h1>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-green-700">
+              <span className="bg-green-100/80 px-4 py-2 rounded-full border border-green-200 flex items-center">
+                <span className="text-lg mr-2">🌿</span>
+                {data.personalInfo.email}
+              </span>
+              <span className="bg-green-100/80 px-4 py-2 rounded-full border border-green-200 flex items-center">
+                <span className="text-lg mr-2">🍃</span>
+                {data.personalInfo.phone}
+              </span>
+              <span className="bg-green-100/80 px-4 py-2 rounded-full border border-green-200 flex items-center">
+                <span className="text-lg mr-2">🌳</span>
+                {data.personalInfo.location}
+              </span>
             </div>
-          </div>
-          {data.personalInfo.photo && (
-            <div className="ml-6">
-              <img
-                src={data.personalInfo.photo}
-                alt="Profile"
-                className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Summary */}
-      {data.personalInfo.summary && (
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold mb-3 text-green-700 flex items-center">
-            <span className="mr-2">🌺</span>About Me
-          </h2>
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-md border-2 border-green-200">
-            <p className="text-sm leading-relaxed text-gray-700">{data.personalInfo.summary}</p>
+            {(data.personalInfo.linkedIn || data.personalInfo.website) && (
+              <div className="flex flex-wrap justify-center gap-4 text-sm text-green-700 mt-3">
+                {data.personalInfo.linkedIn && (
+                  <span className="bg-green-100/80 px-4 py-2 rounded-full border border-green-200 flex items-center">
+                    <span className="text-lg mr-2">🌱</span>
+                    {data.personalInfo.linkedIn}
+                  </span>
+                )}
+                {data.personalInfo.website && (
+                  <span className="bg-green-100/80 px-4 py-2 rounded-full border border-green-200 flex items-center">
+                    <span className="text-lg mr-2">🌺</span>
+                    {data.personalInfo.website}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
-      )}
 
-      <div className="grid grid-cols-3 gap-6">
-        {/* Experience */}
-        <div className="col-span-2">
-          {data.experience.length > 0 && (
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-4 text-green-700 flex items-center">
-                <span className="mr-2">🌲</span>Experience
+        {/* Summary */}
+        {data.personalInfo.summary && (
+          <div className="mb-8">
+            <div className="backdrop-blur-sm bg-white/60 rounded-3xl p-6 border border-green-200/50 shadow-lg">
+              <h2 className="text-2xl font-bold mb-4 text-green-800 flex items-center">
+                <span className="text-3xl mr-3">🌸</span>
+                About Me
               </h2>
-              {data.experience.map((exp) => (
-                <div key={exp.id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 mb-4 shadow-md border-2 border-green-200">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-lg text-gray-800">{exp.jobTitle}</h3>
-                    <span className="text-sm bg-green-500 text-white px-3 py-1 rounded-full shadow-sm">
-                      {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
-                    </span>
-                  </div>
-                  <div className="font-semibold mb-2 text-green-600">{exp.company} • {exp.location}</div>
-                  {exp.description && (
-                    <p className="text-sm leading-relaxed text-gray-700">{exp.description}</p>
-                  )}
-                </div>
-              ))}
+              <p className="text-sm leading-relaxed text-green-700">{data.personalInfo.summary}</p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        <div className="space-y-6">
+        {/* Experience */}
+        {data.experience.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold mb-6 text-center text-green-800 flex items-center justify-center">
+              <span className="text-3xl mr-3">🌿</span>
+              Growth Journey
+            </h2>
+            {data.experience.map((exp, index) => (
+              <div key={exp.id} className="mb-6">
+                <div className="backdrop-blur-sm bg-white/60 rounded-3xl p-6 border border-green-200/50 shadow-lg relative">
+                  <div className={`absolute top-0 left-0 w-full h-2 rounded-t-3xl bg-gradient-to-r ${
+                    index % 3 === 0 ? 'from-green-400 to-emerald-400' :
+                    index % 3 === 1 ? 'from-emerald-400 to-teal-400' :
+                    'from-teal-400 to-green-400'
+                  }`}></div>
+                  <div className="pt-2">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-lg font-bold text-green-800">{exp.jobTitle}</h3>
+                      <span className="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full border border-green-200">
+                        {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
+                      </span>
+                    </div>
+                    <div className="text-green-600 font-semibold mb-3 flex items-center">
+                      <span className="text-lg mr-2">🏢</span>
+                      {exp.company} • {exp.location}
+                    </div>
+                    {exp.description && (
+                      <p className="text-sm leading-relaxed text-green-700">{exp.description}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 gap-6">
           {/* Education */}
           {data.education.length > 0 && (
-            <div>
-              <h2 className="text-xl font-bold mb-4 text-green-700 flex items-center">
-                <span className="mr-2">🌻</span>Education
+            <div className="backdrop-blur-sm bg-white/60 rounded-3xl p-6 border border-green-200/50 shadow-lg">
+              <h2 className="text-xl font-bold mb-4 text-green-800 flex items-center">
+                <span className="text-2xl mr-3">🎓</span>
+                Education
               </h2>
               {data.education.map((edu) => (
-                <div key={edu.id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 mb-4 shadow-md border-2 border-green-200">
-                  <h3 className="font-bold text-gray-800">{edu.degree}</h3>
+                <div key={edu.id} className="mb-4 p-4 bg-green-50/80 rounded-2xl border border-green-200/50">
+                  <h3 className="font-bold text-green-800">{edu.degree}</h3>
                   <div className="text-sm text-green-600">{edu.school}</div>
-                  <div className="text-sm text-gray-600">{edu.location}</div>
-                  <div className="text-sm text-gray-600">{edu.graduationDate}</div>
-                  {edu.gpa && <div className="text-sm text-gray-600">GPA: {edu.gpa}</div>}
+                  <div className="text-sm text-green-600">{edu.location} • {edu.graduationDate}</div>
+                  {edu.gpa && <div className="text-sm text-green-600">GPA: {edu.gpa}</div>}
                 </div>
               ))}
             </div>
@@ -93,18 +122,20 @@ export const NatureTemplate: React.FC<TemplateProps> = ({ data }) => {
 
           {/* Skills */}
           {data.skills.length > 0 && (
-            <div>
-              <h2 className="text-xl font-bold mb-4 text-green-700 flex items-center">
-                <span className="mr-2">🌿</span>Skills
+            <div className="backdrop-blur-sm bg-white/60 rounded-3xl p-6 border border-green-200/50 shadow-lg">
+              <h2 className="text-xl font-bold mb-4 text-green-800 flex items-center">
+                <span className="text-2xl mr-3">🌟</span>
+                Skills
               </h2>
-              <div className="space-y-2">
-                {data.skills.map((skill) => (
-                  <div key={skill.id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 shadow-md border-2 border-green-200">
-                    <div className="flex justify-between">
-                      <span className="font-medium text-gray-800">{skill.name}</span>
-                      <span className="text-sm bg-green-500 text-white px-2 py-1 rounded-full">{skill.level}</span>
-                    </div>
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {data.skills.map((skill, index) => (
+                  <span key={skill.id} className={`px-3 py-1 rounded-full text-sm font-medium border ${
+                    index % 3 === 0 ? 'bg-green-100 text-green-800 border-green-200' :
+                    index % 3 === 1 ? 'bg-emerald-100 text-emerald-800 border-emerald-200' :
+                    'bg-teal-100 text-teal-800 border-teal-200'
+                  }`}>
+                    {skill.name}
+                  </span>
                 ))}
               </div>
             </div>

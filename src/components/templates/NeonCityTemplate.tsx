@@ -8,114 +8,129 @@ interface TemplateProps {
 
 export const NeonCityTemplate: React.FC<TemplateProps> = ({ data }) => {
   return (
-    <div className="bg-gray-900 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-white relative overflow-hidden">
-      {/* Neon Grid Background */}
+    <div className="bg-gray-900 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-green-400 relative overflow-hidden font-mono">
+      {/* Cyberpunk grid background */}
       <div className="absolute inset-0 opacity-10">
-        <div className="w-full h-full" style={{
-          backgroundImage: 'linear-gradient(cyan 1px, transparent 1px), linear-gradient(90deg, cyan 1px, transparent 1px)',
-          backgroundSize: '20px 20px'
-        }}></div>
+        <div className="grid grid-cols-12 grid-rows-16 h-full w-full">
+          {Array.from({ length: 192 }).map((_, i) => (
+            <div key={i} className="border border-green-400"></div>
+          ))}
+        </div>
       </div>
-
-      {/* Header */}
-      <div className="relative bg-black/50 border border-cyan-400 p-6 mb-6 rounded-lg shadow-[0_0_20px_rgba(0,255,255,0.3)]">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold mb-2 text-cyan-400 drop-shadow-[0_0_10px_rgba(0,255,255,0.7)]">
-              {data.personalInfo.fullName}
+      
+      {/* Neon glow effects */}
+      <div className="absolute top-10 left-10 w-32 h-32 bg-cyan-500/20 rounded-full blur-xl"></div>
+      <div className="absolute bottom-10 right-10 w-24 h-24 bg-pink-500/20 rounded-full blur-lg"></div>
+      <div className="absolute top-1/2 left-1/2 w-40 h-2 bg-green-400/30 blur-sm transform -translate-x-1/2 -translate-y-1/2"></div>
+      
+      <div className="relative z-10">
+        {/* Terminal Header */}
+        <div className="border-2 border-green-400 rounded-lg p-6 mb-6 bg-black/80 shadow-lg shadow-green-400/20">
+          <div className="flex items-center mb-4">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <div className="text-green-400 text-xs ml-4 opacity-70">RESUME.EXE</div>
+          </div>
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4 text-cyan-400 tracking-wider shadow-lg">
+              {data.personalInfo.fullName.toUpperCase()}
             </h1>
-            <div className="text-sm space-y-1 text-green-400">
-              <div className="flex items-center"><span className="mr-2 text-cyan-400">▸</span>{data.personalInfo.email}</div>
-              <div className="flex items-center"><span className="mr-2 text-cyan-400">▸</span>{data.personalInfo.phone}</div>
-              <div className="flex items-center"><span className="mr-2 text-cyan-400">▸</span>{data.personalInfo.location}</div>
-              {data.personalInfo.linkedIn && <div className="flex items-center"><span className="mr-2 text-cyan-400">▸</span>{data.personalInfo.linkedIn}</div>}
-              {data.personalInfo.website && <div className="flex items-center"><span className="mr-2 text-cyan-400">▸</span>{data.personalInfo.website}</div>}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
+              <div className="text-green-400">{'>'} {data.personalInfo.email}</div>
+              <div className="text-green-400">{'>'} {data.personalInfo.phone}</div>
+              <div className="text-green-400">{'>'} {data.personalInfo.location}</div>
             </div>
-          </div>
-          {data.personalInfo.photo && (
-            <div className="ml-6">
-              <img
-                src={data.personalInfo.photo}
-                alt="Profile"
-                className="w-24 h-24 rounded object-cover border-2 border-cyan-400 shadow-[0_0_15px_rgba(0,255,255,0.5)]"
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Summary */}
-      {data.personalInfo.summary && (
-        <div className="relative mb-6">
-          <h2 className="text-2xl font-bold mb-3 text-purple-400 drop-shadow-[0_0_10px_rgba(168,85,247,0.7)]">
-            &gt; PROFILE.exe
-          </h2>
-          <div className="bg-black/50 border border-purple-400 p-4 rounded-lg shadow-[0_0_15px_rgba(168,85,247,0.3)]">
-            <p className="text-sm leading-relaxed text-green-300 font-mono">{data.personalInfo.summary}</p>
+            {(data.personalInfo.linkedIn || data.personalInfo.website) && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm mt-2">
+                {data.personalInfo.linkedIn && (
+                  <div className="text-cyan-400">{'>'} {data.personalInfo.linkedIn}</div>
+                )}
+                {data.personalInfo.website && (
+                  <div className="text-cyan-400">{'>'} {data.personalInfo.website}</div>
+                )}
+              </div>
+            )}
           </div>
         </div>
-      )}
 
-      <div className="grid grid-cols-3 gap-6 relative">
-        {/* Experience */}
-        <div className="col-span-2">
-          {data.experience.length > 0 && (
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold mb-4 text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.7)]">
-                &gt; EXPERIENCE.log
-              </h2>
-              {data.experience.map((exp) => (
-                <div key={exp.id} className="bg-black/50 border border-orange-400 p-4 mb-4 rounded-lg shadow-[0_0_15px_rgba(251,146,60,0.3)]">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-lg text-cyan-300">{exp.jobTitle}</h3>
-                    <span className="text-sm bg-orange-500/20 border border-orange-400 px-3 py-1 rounded text-orange-300">
-                      {exp.startDate} - {exp.current ? 'ACTIVE' : exp.endDate}
-                    </span>
-                  </div>
-                  <div className="font-semibold mb-2 text-purple-300">{exp.company} • {exp.location}</div>
-                  {exp.description && (
-                    <p className="text-sm leading-relaxed text-green-200 font-mono">{exp.description}</p>
-                  )}
+        {/* Summary Terminal */}
+        {data.personalInfo.summary && (
+          <div className="border-2 border-cyan-400 rounded-lg p-6 mb-6 bg-black/80 shadow-lg shadow-cyan-400/20">
+            <h2 className="text-xl font-bold mb-4 text-cyan-400 flex items-center">
+              <span className="mr-3">[ABOUT]</span>
+              <div className="flex-1 h-px bg-cyan-400"></div>
+            </h2>
+            <p className="text-sm leading-relaxed text-green-300 font-light">{data.personalInfo.summary}</p>
+          </div>
+        )}
+
+        {/* Experience Terminal */}
+        {data.experience.length > 0 && (
+          <div className="mb-6">
+            <h2 className="text-xl font-bold mb-4 text-pink-400 flex items-center">
+              <span className="mr-3">[EXPERIENCE_LOG]</span>
+              <div className="flex-1 h-px bg-pink-400"></div>
+            </h2>
+            {data.experience.map((exp, index) => (
+              <div key={exp.id} className="border border-pink-400 rounded-lg p-4 mb-4 bg-black/60 shadow-lg shadow-pink-400/10">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-bold text-pink-300">> {exp.jobTitle}</h3>
+                  <span className="text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded border border-green-400">
+                    {exp.startDate} - {exp.current ? 'ACTIVE' : exp.endDate}
+                  </span>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+                <div className="text-cyan-300 text-sm mb-3">@ {exp.company} | {exp.location}</div>
+                {exp.description && (
+                  <p className="text-sm leading-relaxed text-green-300 font-light border-l-2 border-green-400 pl-4">
+                    {exp.description}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
 
-        <div className="space-y-6">
-          {/* Education */}
+        <div className="grid grid-cols-2 gap-6">
+          {/* Education Terminal */}
           {data.education.length > 0 && (
-            <div>
-              <h2 className="text-xl font-bold mb-4 text-pink-400 drop-shadow-[0_0_10px_rgba(244,114,182,0.7)]">
-                &gt; EDUCATION.db
+            <div className="border-2 border-yellow-400 rounded-lg p-6 bg-black/80 shadow-lg shadow-yellow-400/20">
+              <h2 className="text-lg font-bold mb-4 text-yellow-400 flex items-center">
+                <span className="mr-2">[EDU]</span>
+                <div className="flex-1 h-px bg-yellow-400"></div>
               </h2>
               {data.education.map((edu) => (
-                <div key={edu.id} className="bg-black/50 border border-pink-400 p-4 mb-4 rounded-lg shadow-[0_0_15px_rgba(244,114,182,0.3)]">
-                  <h3 className="font-bold text-cyan-300">{edu.degree}</h3>
-                  <div className="text-sm text-pink-300">{edu.school}</div>
-                  <div className="text-sm text-green-300">{edu.location}</div>
-                  <div className="text-sm text-green-300">{edu.graduationDate}</div>
+                <div key={edu.id} className="mb-4 border-l-2 border-yellow-400 pl-4">
+                  <h3 className="font-bold text-yellow-300">> {edu.degree}</h3>
+                  <div className="text-sm text-cyan-300">{edu.school}</div>
+                  <div className="text-sm text-green-300">{edu.location} | {edu.graduationDate}</div>
                   {edu.gpa && <div className="text-sm text-green-300">GPA: {edu.gpa}</div>}
                 </div>
               ))}
             </div>
           )}
 
-          {/* Skills */}
+          {/* Skills Terminal */}
           {data.skills.length > 0 && (
-            <div>
-              <h2 className="text-xl font-bold mb-4 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.7)]">
-                &gt; SKILLS.cfg
+            <div className="border-2 border-purple-400 rounded-lg p-6 bg-black/80 shadow-lg shadow-purple-400/20">
+              <h2 className="text-lg font-bold mb-4 text-purple-400 flex items-center">
+                <span className="mr-2">[SKILLS]</span>
+                <div className="flex-1 h-px bg-purple-400"></div>
               </h2>
               <div className="space-y-2">
-                {data.skills.map((skill) => (
-                  <div key={skill.id} className="bg-black/50 border border-yellow-400 p-3 rounded-lg shadow-[0_0_15px_rgba(250,204,21,0.3)]">
-                    <div className="flex justify-between">
-                      <span className="font-medium text-cyan-300 font-mono">{skill.name}</span>
-                      <span className="text-sm bg-yellow-500/20 border border-yellow-400 px-2 py-1 rounded text-yellow-300">
-                        {skill.level}
-                      </span>
-                    </div>
+                {data.skills.map((skill, index) => (
+                  <div key={skill.id} className="flex justify-between items-center">
+                    <span className="text-sm text-purple-300">> {skill.name}</span>
+                    <span className={`text-xs px-2 py-1 rounded border ${
+                      skill.level === 'Expert' ? 'text-red-400 border-red-400 bg-red-400/10' :
+                      skill.level === 'Advanced' ? 'text-yellow-400 border-yellow-400 bg-yellow-400/10' :
+                      skill.level === 'Intermediate' ? 'text-blue-400 border-blue-400 bg-blue-400/10' :
+                      'text-green-400 border-green-400 bg-green-400/10'
+                    }`}>
+                      {skill.level.toUpperCase()}
+                    </span>
                   </div>
                 ))}
               </div>

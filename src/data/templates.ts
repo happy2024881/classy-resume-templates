@@ -54,6 +54,16 @@ import { TimelineBWTemplate } from '@/components/templates/TimelineBWTemplate';
 import { GridBWTemplate } from '@/components/templates/GridBWTemplate';
 import { SimpleBWTemplate } from '@/components/templates/SimpleBWTemplate';
 import { TypewriterBWTemplate } from '@/components/templates/TypewriterBWTemplate';
+import { WatercolorTemplate } from '@/components/templates/WatercolorTemplate';
+import { GeometricTemplate } from '@/components/templates/GeometricTemplate';
+import { ArtisticTemplate } from '@/components/templates/ArtisticTemplate';
+import { MonochromeTemplate } from '@/components/templates/MonochromeTemplate';
+import { GradientTemplate } from '@/components/templates/GradientTemplate';
+import { MaterialTemplate } from '@/components/templates/MaterialTemplate';
+import { NatureTemplate } from '@/components/templates/NatureTemplate';
+import { NeonCityTemplate } from '@/components/templates/NeonCityTemplate';
+import { OceanTemplate } from '@/components/templates/OceanTemplate';
+import { GalacticTemplate } from '@/components/templates/GalacticTemplate';
 
 export const templates: Template[] = [
   {
@@ -236,7 +246,7 @@ export const templates: Template[] = [
     description: 'Deep ocean theme with wave patterns and aquatic color palette',
     component: OceanTemplate
   },
-  {
+    {
     id: 'galactic',
     name: 'Galactic',
     description: 'Space-themed design with cosmic gradients and stellar elements',
@@ -327,6 +337,12 @@ export const templates: Template[] = [
     component: ArcticTemplate
   },
   {
+    id: 'contrast-bw',
+    name: 'Contrast B&W',
+    description: 'High-contrast black and white template with bold header and structured layout',
+    component: ContrastBWTemplate
+  },
+  {
     id: 'classic-bw',
     name: 'Classic B&W',
     description: 'Traditional black and white resume with clean typography and professional layout',
@@ -380,10 +396,4 @@ export const templates: Template[] = [
     description: 'Vintage typewriter-inspired black and white template with monospace font',
     component: TypewriterBWTemplate
   },
-  {
-    id: 'contrast-bw',
-    name: 'Contrast B&W',
-    description: 'High-contrast black and white template with bold header and structured layout',
-    component: ContrastBWTemplate
-  }
 ];

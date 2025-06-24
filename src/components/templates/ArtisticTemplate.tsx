@@ -8,93 +8,105 @@ interface TemplateProps {
 
 export const ArtisticTemplate: React.FC<TemplateProps> = ({ data }) => {
   return (
-    <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-white relative overflow-hidden">
-      {/* Artistic Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-20">
-        <div className="absolute top-10 left-10 w-32 h-32 border-4 border-yellow-400 rounded-full"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 border-4 border-green-400 transform rotate-45"></div>
-        <div className="absolute bottom-20 left-20 w-28 h-28 border-4 border-pink-400 transform rotate-12"></div>
-        <div className="absolute bottom-40 right-10 w-20 h-20 border-4 border-blue-400 rounded-full"></div>
+    <div className="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-white relative overflow-hidden">
+      {/* Artistic background elements */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-full blur-xl"></div>
+        <div className="absolute bottom-20 left-10 w-24 h-24 bg-gradient-to-r from-green-400 to-blue-400 rounded-full blur-lg"></div>
+        <div className="absolute top-1/2 left-1/2 w-40 h-40 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2"></div>
       </div>
       
-      {/* Header */}
-      <div className="relative z-10 mb-8">
-        <div className="border-4 border-white p-6 transform -rotate-1">
-          <div className="flex items-center justify-between transform rotate-1">
-            <div>
-              <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-yellow-400 to-pink-400 bg-clip-text text-transparent">{data.personalInfo.fullName}</h1>
-              <div className="text-sm space-y-1">
-                <div className="text-yellow-300">{data.personalInfo.email}</div>
-                <div className="text-green-300">{data.personalInfo.phone}</div>
-                <div className="text-blue-300">{data.personalInfo.location}</div>
-                {data.personalInfo.linkedIn && <div className="text-pink-300">{data.personalInfo.linkedIn}</div>}
-                {data.personalInfo.website && <div className="text-purple-300">{data.personalInfo.website}</div>}
-              </div>
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="text-center mb-8 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-3xl blur-sm"></div>
+          <div className="relative backdrop-blur-sm bg-white/5 rounded-3xl p-8 border border-white/20">
+            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+              {data.personalInfo.fullName}
+            </h1>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                {data.personalInfo.email}
+              </span>
+              <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                {data.personalInfo.phone}
+              </span>
+              <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                {data.personalInfo.location}
+              </span>
             </div>
-            {data.personalInfo.photo && (
-              <div className="ml-6">
-                <img
-                  src={data.personalInfo.photo}
-                  alt="Profile"
-                  className="w-28 h-28 object-cover border-4 border-white transform rotate-3"
-                  style={{ clipPath: 'polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)' }}
-                />
+            {(data.personalInfo.linkedIn || data.personalInfo.website) && (
+              <div className="flex flex-wrap justify-center gap-4 text-sm mt-3">
+                {data.personalInfo.linkedIn && (
+                  <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                    {data.personalInfo.linkedIn}
+                  </span>
+                )}
+                {data.personalInfo.website && (
+                  <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
+                    {data.personalInfo.website}
+                  </span>
+                )}
               </div>
             )}
           </div>
         </div>
-      </div>
 
-      {/* Summary */}
-      {data.personalInfo.summary && (
-        <div className="mb-8 relative z-10">
-          <h2 className="text-3xl font-bold mb-4 text-yellow-400 transform -skew-x-12">Artist Statement</h2>
-          <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border-l-4 border-yellow-400">
-            <p className="text-sm leading-relaxed">{data.personalInfo.summary}</p>
-          </div>
-        </div>
-      )}
-
-      <div className="grid grid-cols-3 gap-8 relative z-10">
-        {/* Experience */}
-        <div className="col-span-2">
-          {data.experience.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold mb-6 text-pink-400 transform -skew-x-12">Portfolio</h2>
-              {data.experience.map((exp, index) => (
-                <div key={exp.id} className={`mb-6 transform ${index % 2 === 0 ? 'rotate-1' : '-rotate-1'}`}>
-                  <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-bold text-xl text-green-400">{exp.jobTitle}</h3>
-                      <span className="text-sm bg-gradient-to-r from-purple-500 to-pink-500 px-3 py-1 rounded-full">
-                        {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
-                      </span>
-                    </div>
-                    <div className="text-blue-300 font-semibold mb-2">{exp.company} • {exp.location}</div>
-                    {exp.description && (
-                      <p className="text-sm leading-relaxed text-gray-200">{exp.description}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
+        {/* Summary */}
+        {data.personalInfo.summary && (
+          <div className="mb-8">
+            <div className="backdrop-blur-sm bg-white/10 rounded-3xl p-6 border border-white/20">
+              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                Creative Vision
+              </h2>
+              <p className="text-sm leading-relaxed text-gray-100">{data.personalInfo.summary}</p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        <div className="space-y-8">
+        {/* Experience */}
+        {data.experience.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+              Experience Journey
+            </h2>
+            {data.experience.map((exp, index) => (
+              <div key={exp.id} className="mb-6">
+                <div className="backdrop-blur-sm bg-white/10 rounded-3xl p-6 border border-white/20 relative overflow-hidden">
+                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${
+                    index % 3 === 0 ? 'from-pink-400 to-yellow-400' :
+                    index % 3 === 1 ? 'from-blue-400 to-purple-400' :
+                    'from-green-400 to-cyan-400'
+                  }`}></div>
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-lg font-bold text-white">{exp.jobTitle}</h3>
+                    <span className="text-sm bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full">
+                      {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
+                    </span>
+                  </div>
+                  <div className="text-cyan-300 font-semibold mb-3">{exp.company} • {exp.location}</div>
+                  {exp.description && (
+                    <p className="text-sm leading-relaxed text-gray-200">{exp.description}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 gap-6">
           {/* Education */}
           {data.education.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-bold mb-4 text-green-400 transform -skew-x-12">Learning</h2>
+            <div className="backdrop-blur-sm bg-white/10 rounded-3xl p-6 border border-white/20">
+              <h2 className="text-xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                Education
+              </h2>
               {data.education.map((edu) => (
                 <div key={edu.id} className="mb-4">
-                  <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg border border-white/20">
-                    <h3 className="font-bold text-yellow-400">{edu.degree}</h3>
-                    <div className="text-sm text-green-300">{edu.school}</div>
-                    <div className="text-sm text-blue-300">{edu.location}</div>
-                    <div className="text-sm text-purple-300">{edu.graduationDate}</div>
-                    {edu.gpa && <div className="text-sm text-pink-300">GPA: {edu.gpa}</div>}
-                  </div>
+                  <h3 className="font-bold text-white">{edu.degree}</h3>
+                  <div className="text-sm text-cyan-300">{edu.school}</div>
+                  <div className="text-sm text-gray-300">{edu.location} • {edu.graduationDate}</div>
+                  {edu.gpa && <div className="text-sm text-gray-300">GPA: {edu.gpa}</div>}
                 </div>
               ))}
             </div>
@@ -102,18 +114,20 @@ export const ArtisticTemplate: React.FC<TemplateProps> = ({ data }) => {
 
           {/* Skills */}
           {data.skills.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-bold mb-4 text-blue-400 transform -skew-x-12">Talents</h2>
-              <div className="space-y-2">
+            <div className="backdrop-blur-sm bg-white/10 rounded-3xl p-6 border border-white/20">
+              <h2 className="text-xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                Skills
+              </h2>
+              <div className="flex flex-wrap gap-2">
                 {data.skills.map((skill, index) => (
-                  <div key={skill.id} className={`transform ${index % 2 === 0 ? 'rotate-1' : '-rotate-1'}`}>
-                    <div className="bg-white/10 backdrop-blur-sm p-3 rounded-lg border border-white/20">
-                      <div className="flex justify-between">
-                        <span className="font-medium text-yellow-300">{skill.name}</span>
-                        <span className="text-sm bg-gradient-to-r from-blue-500 to-purple-500 px-2 py-1 rounded-full">{skill.level}</span>
-                      </div>
-                    </div>
-                  </div>
+                  <span key={skill.id} className={`px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${
+                    index % 4 === 0 ? 'from-pink-500 to-rose-500' :
+                    index % 4 === 1 ? 'from-blue-500 to-cyan-500' :
+                    index % 4 === 2 ? 'from-green-500 to-teal-500' :
+                    'from-purple-500 to-indigo-500'
+                  } text-white`}>
+                    {skill.name}
+                  </span>
                 ))}
               </div>
             </div>
