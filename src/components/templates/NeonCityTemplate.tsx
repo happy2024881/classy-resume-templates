@@ -77,7 +77,7 @@ export const NeonCityTemplate: React.FC<TemplateProps> = ({ data }) => {
             {data.experience.map((exp, index) => (
               <div key={exp.id} className="border border-pink-400 rounded-lg p-4 mb-4 bg-black/60 shadow-lg shadow-pink-400/10">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-bold text-pink-300">> {exp.jobTitle}</h3>
+                  <h3 className="font-bold text-pink-300">{'>'} {exp.jobTitle}</h3>
                   <span className="text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded border border-green-400">
                     {exp.startDate} - {exp.current ? 'ACTIVE' : exp.endDate}
                   </span>
@@ -103,7 +103,7 @@ export const NeonCityTemplate: React.FC<TemplateProps> = ({ data }) => {
               </h2>
               {data.education.map((edu) => (
                 <div key={edu.id} className="mb-4 border-l-2 border-yellow-400 pl-4">
-                  <h3 className="font-bold text-yellow-300">> {edu.degree}</h3>
+                  <h3 className="font-bold text-yellow-300">{'>'} {edu.degree}</h3>
                   <div className="text-sm text-cyan-300">{edu.school}</div>
                   <div className="text-sm text-green-300">{edu.location} | {edu.graduationDate}</div>
                   {edu.gpa && <div className="text-sm text-green-300">GPA: {edu.gpa}</div>}
@@ -122,7 +122,7 @@ export const NeonCityTemplate: React.FC<TemplateProps> = ({ data }) => {
               <div className="space-y-2">
                 {data.skills.map((skill, index) => (
                   <div key={skill.id} className="flex justify-between items-center">
-                    <span className="text-sm text-purple-300">> {skill.name}</span>
+                    <span className="text-sm text-purple-300">{'>'} {skill.name}</span>
                     <span className={`text-xs px-2 py-1 rounded border ${
                       skill.level === 'Expert' ? 'text-red-400 border-red-400 bg-red-400/10' :
                       skill.level === 'Advanced' ? 'text-yellow-400 border-yellow-400 bg-yellow-400/10' :
