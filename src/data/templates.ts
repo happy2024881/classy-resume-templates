@@ -44,6 +44,16 @@ import { CorporateTemplate } from '@/components/templates/CorporateTemplate';
 import { SakuraTemplate } from '@/components/templates/SakuraTemplate';
 import { UrbanTemplate } from '@/components/templates/UrbanTemplate';
 import { ArcticTemplate } from '@/components/templates/ArcticTemplate';
+import { ContrastBWTemplate } from '@/components/templates/ContrastBWTemplate';
+import { ClassicBWTemplate } from '@/components/templates/ClassicBWTemplate';
+import { ExecutiveBWTemplate } from '@/components/templates/ExecutiveBWTemplate';
+import { ModernBWTemplate } from '@/components/templates/ModernBWTemplate';
+import { CleanBWTemplate } from '@/components/templates/CleanBWTemplate';
+import { StructuredBWTemplate } from '@/components/templates/StructuredBWTemplate';
+import { TimelineBWTemplate } from '@/components/templates/TimelineBWTemplate';
+import { GridBWTemplate } from '@/components/templates/GridBWTemplate';
+import { SimpleBWTemplate } from '@/components/templates/SimpleBWTemplate';
+import { TypewriterBWTemplate } from '@/components/templates/TypewriterBWTemplate';
 
 export const templates: Template[] = [
   {
@@ -315,5 +325,65 @@ export const templates: Template[] = [
     name: 'Arctic',
     description: 'Cool arctic theme with ice-blue tones and crisp winter atmosphere',
     component: ArcticTemplate
+  },
+  {
+    id: 'classic-bw',
+    name: 'Classic B&W',
+    description: 'Traditional black and white resume with clean typography and professional layout',
+    component: ClassicBWTemplate
+  },
+  {
+    id: 'executive-bw',
+    name: 'Executive B&W',
+    description: 'Bold executive-style black and white template with strong visual hierarchy',
+    component: ExecutiveBWTemplate
+  },
+  {
+    id: 'modern-bw',
+    name: 'Modern B&W',
+    description: 'Contemporary black and white design with clean lines and structured sections',
+    component: ModernBWTemplate
+  },
+  {
+    id: 'clean-bw',
+    name: 'Clean B&W',
+    description: 'Ultra-minimal black and white template with centered layout and light typography',
+    component: CleanBWTemplate
+  },
+  {
+    id: 'structured-bw',
+    name: 'Structured B&W',
+    description: 'Highly organized black and white template with bordered sections and grid layout',
+    component: StructuredBWTemplate
+  },
+  {
+    id: 'timeline-bw',
+    name: 'Timeline B&W',
+    description: 'Timeline-style black and white template showing career progression visually',
+    component: TimelineBWTemplate
+  },
+  {
+    id: 'grid-bw',
+    name: 'Grid B&W',
+    description: 'Grid-based black and white template with modular design and clean structure',
+    component: GridBWTemplate
+  },
+  {
+    id: 'simple-bw',
+    name: 'Simple B&W',
+    description: 'Elegant simple black and white template with light typography and emoji accents',
+    component: SimpleBWTemplate
+  },
+  {
+    id: 'typewriter-bw',
+    name: 'Typewriter B&W',
+    description: 'Vintage typewriter-inspired black and white template with monospace font',
+    component: TypewriterBWTemplate
+  },
+  {
+    id: 'contrast-bw',
+    name: 'Contrast B&W',
+    description: 'High-contrast black and white template with bold header and structured layout',
+    component: ContrastBWTemplate
   }
 ];
