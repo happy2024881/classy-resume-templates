@@ -69,9 +69,19 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
               onClick={() => onTemplateSelect(template.id)}
             >
               <CardContent className="p-4">
-                <div className="aspect-[8.5/11] bg-gray-100 rounded mb-3 overflow-hidden">
-                  <div className="transform scale-[0.12] origin-top-left" style={{ width: '833.33%', height: '833.33%' }}>
-                    <TemplateComponent data={sampleData} />
+                <div className="aspect-[8.5/11] bg-gray-100 rounded mb-3 overflow-hidden relative">
+                  <div 
+                    className="absolute inset-0 origin-top-left"
+                    style={{ 
+                      transform: 'scale(0.12)',
+                      transformOrigin: 'top left',
+                      width: '833.33%',
+                      height: '833.33%'
+                    }}
+                  >
+                    <div className="w-full h-full">
+                      <TemplateComponent data={sampleData} />
+                    </div>
                   </div>
                 </div>
                 <h4 className="font-medium text-sm">{template.name}</h4>
