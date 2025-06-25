@@ -71,9 +71,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
               <CardContent className="p-4">
                 <div className="aspect-[8.5/11] bg-gray-100 rounded mb-3 overflow-hidden">
                   <div className="transform scale-[0.12] origin-top-left" style={{ width: '833.33%', height: '833.33%' }}>
-                    <div style={{ width: '8.5in', height: '11in' }}>
-                      <TemplateComponent data={sampleData} />
-                    </div>
+                    <TemplateComponent data={sampleData} />
                   </div>
                 </div>
                 <h4 className="font-medium text-sm">{template.name}</h4>
