@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ResumeData, Template } from '@/types/resume';
 import { Button } from '@/components/ui/button';
@@ -35,8 +36,9 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
         
         // Handle image data URLs - ensure they're properly embedded
         if (data.personalInfo.photo) {
-          // If it's a file object, convert to data URL
-          if (data.personalInfo.photo instanceof File) {
+          // Check if it's a File object (though it should be a string in our type system)
+          const photoValue = data.personalInfo.photo as any;
+          if (photoValue && typeof photoValue === 'object' && photoValue instanceof File) {
             const reader = new FileReader();
             reader.onload = function(e) {
               const imageDataUrl = e.target?.result as string;
@@ -46,7 +48,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
               );
               writeToWindow();
             };
-            reader.readAsDataURL(data.personalInfo.photo);
+            reader.readAsDataURL(photoValue);
             return;
           } else {
             // Replace any relative image sources with the actual data
@@ -158,7 +160,8 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
         
         // Handle image data URLs for preview
         if (data.personalInfo.photo) {
-          if (data.personalInfo.photo instanceof File) {
+          const photoValue = data.personalInfo.photo as any;
+          if (photoValue && typeof photoValue === 'object' && photoValue instanceof File) {
             const reader = new FileReader();
             reader.onload = function(e) {
               const imageDataUrl = e.target?.result as string;
@@ -168,7 +171,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
               );
               writeToPreviewWindow();
             };
-            reader.readAsDataURL(data.personalInfo.photo);
+            reader.readAsDataURL(photoValue);
             return;
           }
         }
