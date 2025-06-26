@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ResumeData, Template } from '@/types/resume';
 import { Button } from '@/components/ui/button';
@@ -32,76 +31,113 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
       
       // Wait a bit for React to render and images to load
       setTimeout(() => {
-        const resumeHTML = tempDiv.innerHTML;
+        let resumeHTML = tempDiv.innerHTML;
         
-        // Write the complete HTML document to the print window
-        printWindow.document.write(`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>Resume - ${data.personalInfo.fullName}</title>
-              <style>
-                * {
-                  margin: 0;
-                  padding: 0;
-                  box-sizing: border-box;
-                }
-                
-                body {
-                  margin: 0;
-                  padding: 0;
-                  font-family: system-ui, -apple-system, sans-serif;
-                }
-                
-                @media print {
-                  body {
-                    margin: 0 !important;
-                    padding: 0 !important;
+        // Handle image data URLs - ensure they're properly embedded
+        if (data.personalInfo.photo) {
+          // If it's a file object, convert to data URL
+          if (data.personalInfo.photo instanceof File) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const imageDataUrl = e.target?.result as string;
+              resumeHTML = resumeHTML.replace(
+                /src="[^"]*"/g, 
+                (match) => match.includes('data:') ? match : `src="${imageDataUrl}"`
+              );
+              writeToWindow();
+            };
+            reader.readAsDataURL(data.personalInfo.photo);
+            return;
+          } else {
+            // Replace any relative image sources with the actual data
+            resumeHTML = resumeHTML.replace(
+              new RegExp(`src="${data.personalInfo.photo}"`, 'g'),
+              `src="${data.personalInfo.photo}"`
+            );
+          }
+        }
+        
+        writeToWindow();
+        
+        function writeToWindow() {
+          // Write the complete HTML document to the print window
+          printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>Resume - ${data.personalInfo.fullName}</title>
+                <style>
+                  * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
                   }
                   
-                  .print-container {
-                    width: 8.5in !important;
-                    min-height: 11in !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    box-shadow: none !important;
+                  body {
+                    margin: 0;
+                    padding: 0;
+                    font-family: system-ui, -apple-system, sans-serif;
                   }
-                }
-                
-                /* Include all Tailwind CSS classes used in templates */
-                ${getTailwindStyles()}
-              </style>
-            </head>
-            <body>
-              <div class="print-container">
-                ${resumeHTML}
-              </div>
-            </body>
-          </html>
-        `);
-        
-        printWindow.document.close();
-        
-        // Clean up
-        document.body.removeChild(tempDiv);
-        
-        // Wait for images to load before printing
-        const images = printWindow.document.querySelectorAll('img');
-        const imagePromises = Array.from(images).map(img => {
-          if (img.complete) return Promise.resolve();
-          return new Promise((resolve) => {
-            img.onload = resolve;
-            img.onerror = resolve; // Resolve even on error to prevent hanging
+                  
+                  @media print {
+                    body {
+                      margin: 0 !important;
+                      padding: 0 !important;
+                    }
+                    
+                    .print-container {
+                      width: 8.5in !important;
+                      min-height: 11in !important;
+                      margin: 0 !important;
+                      padding: 0 !important;
+                      box-shadow: none !important;
+                    }
+                  }
+                  
+                  img {
+                    max-width: 100% !important;
+                    height: auto !important;
+                  }
+                  
+                  /* Include all Tailwind CSS classes used in templates */
+                  ${getTailwindStyles()}
+                </style>
+              </head>
+              <body>
+                <div class="print-container">
+                  ${resumeHTML}
+                </div>
+              </body>
+            </html>
+          `);
+          
+          printWindow.document.close();
+          
+          // Clean up
+          document.body.removeChild(tempDiv);
+          
+          // Wait for images to load before printing
+          const images = printWindow.document.querySelectorAll('img');
+          const imagePromises = Array.from(images).map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise((resolve) => {
+              img.onload = resolve;
+              img.onerror = resolve; // Resolve even on error to prevent hanging
+              // Set a timeout to prevent hanging on slow images
+              setTimeout(resolve, 3000);
+            });
           });
-        });
-        
-        Promise.all(imagePromises).then(() => {
-          // Trigger print after images are loaded
-          printWindow.focus();
-          printWindow.print();
-          printWindow.close();
-        });
-      }, 200);
+          
+          Promise.all(imagePromises).then(() => {
+            // Trigger print after images are loaded
+            setTimeout(() => {
+              printWindow.focus();
+              printWindow.print();
+              printWindow.close();
+            }, 500);
+          });
+        }
+      }, 300);
     });
   };
 
@@ -118,50 +154,76 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
       root.render(React.createElement(TemplateComponent, { data }));
       
       setTimeout(() => {
-        const resumeHTML = tempDiv.innerHTML;
+        let resumeHTML = tempDiv.innerHTML;
         
-        previewWindow.document.write(`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>Resume Preview - ${data.personalInfo.fullName}</title>
-              <style>
-                * {
-                  margin: 0;
-                  padding: 0;
-                  box-sizing: border-box;
-                }
-                
-                body {
-                  margin: 20px;
-                  font-family: system-ui, -apple-system, sans-serif;
-                  background: #f5f5f5;
-                  display: flex;
-                  justify-content: center;
-                  align-items: flex-start;
-                  min-height: 100vh;
-                }
-                
-                .preview-container {
-                  background: white;
-                  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                  margin: 20px;
-                }
-                
-                ${getTailwindStyles()}
-              </style>
-            </head>
-            <body>
-              <div class="preview-container">
-                ${resumeHTML}
-              </div>
-            </body>
-          </html>
-        `);
+        // Handle image data URLs for preview
+        if (data.personalInfo.photo) {
+          if (data.personalInfo.photo instanceof File) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const imageDataUrl = e.target?.result as string;
+              resumeHTML = resumeHTML.replace(
+                /src="[^"]*"/g, 
+                (match) => match.includes('data:') ? match : `src="${imageDataUrl}"`
+              );
+              writeToPreviewWindow();
+            };
+            reader.readAsDataURL(data.personalInfo.photo);
+            return;
+          }
+        }
         
-        previewWindow.document.close();
-        document.body.removeChild(tempDiv);
-      }, 200);
+        writeToPreviewWindow();
+        
+        function writeToPreviewWindow() {
+          previewWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>Resume Preview - ${data.personalInfo.fullName}</title>
+                <style>
+                  * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                  }
+                  
+                  body {
+                    margin: 20px;
+                    font-family: system-ui, -apple-system, sans-serif;
+                    background: #f5f5f5;
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    min-height: 100vh;
+                  }
+                  
+                  .preview-container {
+                    background: white;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    margin: 20px;
+                  }
+                  
+                  img {
+                    max-width: 100% !important;
+                    height: auto !important;
+                  }
+                  
+                  ${getTailwindStyles()}
+                </style>
+              </head>
+              <body>
+                <div class="preview-container">
+                  ${resumeHTML}
+                </div>
+              </body>
+            </html>
+          `);
+          
+          previewWindow.document.close();
+          document.body.removeChild(tempDiv);
+        }
+      }, 300);
     });
   };
 
