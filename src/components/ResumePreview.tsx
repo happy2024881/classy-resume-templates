@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ResumeData, Template } from '@/types/resume';
 import { Button } from '@/components/ui/button';
@@ -27,9 +28,9 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
     // Use React to render the component into the temporary div
     import('react-dom/client').then(({ createRoot }) => {
       const root = createRoot(tempDiv);
-      root.render(<TemplateComponent data={data} />);
+      root.render(React.createElement(TemplateComponent, { data }));
       
-      // Wait a bit for React to render
+      // Wait a bit for React to render and images to load
       setTimeout(() => {
         const resumeHTML = tempDiv.innerHTML;
         
@@ -84,11 +85,23 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
         // Clean up
         document.body.removeChild(tempDiv);
         
-        // Trigger print
-        printWindow.focus();
-        printWindow.print();
-        printWindow.close();
-      }, 100);
+        // Wait for images to load before printing
+        const images = printWindow.document.querySelectorAll('img');
+        const imagePromises = Array.from(images).map(img => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve; // Resolve even on error to prevent hanging
+          });
+        });
+        
+        Promise.all(imagePromises).then(() => {
+          // Trigger print after images are loaded
+          printWindow.focus();
+          printWindow.print();
+          printWindow.close();
+        });
+      }, 200);
     });
   };
 
@@ -102,7 +115,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
     
     import('react-dom/client').then(({ createRoot }) => {
       const root = createRoot(tempDiv);
-      root.render(<TemplateComponent data={data} />);
+      root.render(React.createElement(TemplateComponent, { data }));
       
       setTimeout(() => {
         const resumeHTML = tempDiv.innerHTML;
@@ -148,7 +161,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
         
         previewWindow.document.close();
         document.body.removeChild(tempDiv);
-      }, 100);
+      }, 200);
     });
   };
 
