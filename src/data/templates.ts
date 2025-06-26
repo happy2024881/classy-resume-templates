@@ -54,6 +54,16 @@ import { TimelineBWTemplate } from '@/components/templates/TimelineBWTemplate';
 import { GridBWTemplate } from '@/components/templates/GridBWTemplate';
 import { SimpleBWTemplate } from '@/components/templates/SimpleBWTemplate';
 import { TypewriterBWTemplate } from '@/components/templates/TypewriterBWTemplate';
+import { TraditionalIndianTemplate } from '@/components/templates/TraditionalIndianTemplate';
+import { ModernIndianTemplate } from '@/components/templates/ModernIndianTemplate';
+import { CorporateIndianTemplate } from '@/components/templates/CorporateIndianTemplate';
+import { VibrantIndianTemplate } from '@/components/templates/VibrantIndianTemplate';
+import { ElegantIndianTemplate } from '@/components/templates/ElegantIndianTemplate';
+import { CreativeIndianTemplate } from '@/components/templates/CreativeIndianTemplate';
+import { MinimalistIndianTemplate } from '@/components/templates/MinimalistIndianTemplate';
+import { FestiveIndianTemplate } from '@/components/templates/FestiveIndianTemplate';
+import { ProfessionalIndianTemplate } from '@/components/templates/ProfessionalIndianTemplate';
+import { ClassicIndianTemplate } from '@/components/templates/ClassicIndianTemplate';
 
 export const templates: Template[] = [
   {
@@ -236,7 +246,7 @@ export const templates: Template[] = [
     description: 'Deep ocean theme with wave patterns and aquatic color palette',
     component: OceanTemplate
   },
-    {
+  {
     id: 'galactic',
     name: 'Galactic',
     description: 'Space-themed design with cosmic gradients and stellar elements',
@@ -385,5 +395,65 @@ export const templates: Template[] = [
     name: 'Typewriter B&W',
     description: 'Vintage typewriter-inspired black and white template with monospace font',
     component: TypewriterBWTemplate
+  },
+  {
+    id: 'traditional-indian',
+    name: 'Traditional Indian',
+    description: 'Traditional Indian resume with saffron and orange colors, ideal for conservative industries',
+    component: TraditionalIndianTemplate
+  },
+  {
+    id: 'modern-indian',
+    name: 'Modern Indian',
+    description: 'Contemporary Indian design with tricolor inspiration and clean professional layout',
+    component: ModernIndianTemplate
+  },
+  {
+    id: 'corporate-indian',
+    name: 'Corporate Indian',
+    description: 'Professional corporate template with Indian blue and saffron accents for business roles',
+    component: CorporateIndianTemplate
+  },
+  {
+    id: 'vibrant-indian',
+    name: 'Vibrant Indian',
+    description: 'Colorful and energetic design with Indian festival colors and modern styling',
+    component: VibrantIndianTemplate
+  },
+  {
+    id: 'elegant-indian',
+    name: 'Elegant Indian',
+    description: 'Sophisticated template with golden accents and serif fonts for senior positions',
+    component: ElegantIndianTemplate
+  },
+  {
+    id: 'creative-indian',
+    name: 'Creative Indian',
+    description: 'Creative sidebar design with purple and pink gradients for artistic professionals',
+    component: CreativeIndianTemplate
+  },
+  {
+    id: 'minimalist-indian',
+    name: 'Minimalist Indian',
+    description: 'Clean and minimal design with subtle Indian aesthetics for modern professionals',
+    component: MinimalistIndianTemplate
+  },
+  {
+    id: 'festive-indian',
+    name: 'Festive Indian',
+    description: 'Colorful festive template with traditional patterns and vibrant Indian colors',
+    component: FestiveIndianTemplate
+  },
+  {
+    id: 'professional-indian',
+    name: 'Professional Indian',
+    description: 'Executive-level template with deep blue colors and professional Indian styling',
+    component: ProfessionalIndianTemplate
+  },
+  {
+    id: 'classic-indian',
+    name: 'Classic Indian',
+    description: 'Traditional formal resume with classic Indian professional formatting',
+    component: ClassicIndianTemplate
   },
 ];
