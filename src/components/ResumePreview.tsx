@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ResumeData, Template } from '@/types/resume';
 import { Button } from '@/components/ui/button';
@@ -136,8 +137,22 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
       const root = createRoot(tempDiv);
       root.render(React.createElement(TemplateComponent, { data }));
       
+      // Increased timeout and added multiple checks to ensure content is rendered
       setTimeout(async () => {
+        // Wait for the component to fully render
+        await new Promise(resolve => {
+          const checkContent = () => {
+            if (tempDiv.innerHTML && tempDiv.innerHTML.length > 100) {
+              resolve(true);
+            } else {
+              setTimeout(checkContent, 100);
+            }
+          };
+          checkContent();
+        });
+
         let resumeHTML = tempDiv.innerHTML;
+        console.log('Resume HTML length:', resumeHTML.length); // Debug log
         
         // Handle image conversion if photo exists and it's not already a data URL
         if (data.personalInfo.photo && !data.personalInfo.photo.startsWith('data:')) {
@@ -152,7 +167,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
           }
         }
         
-        previewWindow.document.write(`
+        const htmlContent = `
           <!DOCTYPE html>
           <html>
             <head>
@@ -195,11 +210,18 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
               </div>
             </body>
           </html>
-        `);
+        `;
         
+        previewWindow.document.write(htmlContent);
         previewWindow.document.close();
         document.body.removeChild(tempDiv);
-      }, 500);
+        
+        // Focus the window after a brief delay
+        setTimeout(() => {
+          previewWindow.focus();
+        }, 100);
+        
+      }, 1000); // Increased timeout to 1000ms
     } catch (error) {
       console.error('Error during preview:', error);
       document.body.removeChild(tempDiv);
