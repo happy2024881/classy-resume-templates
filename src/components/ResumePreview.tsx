@@ -34,29 +34,37 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
       setTimeout(() => {
         let resumeHTML = tempDiv.innerHTML;
         
-        // Handle image data URLs - ensure they're properly embedded
-        if (data.personalInfo.photo) {
-          // Check if it's a File object (though it should be a string in our type system)
-          const photoValue = data.personalInfo.photo as any;
-          if (photoValue && typeof photoValue === 'object' && photoValue instanceof File) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-              const imageDataUrl = e.target?.result as string;
-              resumeHTML = resumeHTML.replace(
-                /src="[^"]*"/g, 
-                (match) => match.includes('data:') ? match : `src="${imageDataUrl}"`
-              );
-              writeToWindow();
-            };
-            reader.readAsDataURL(photoValue);
-            return;
-          } else {
-            // Replace any relative image sources with the actual data
+        // Handle image embedding - replace any img src with data URL if photo exists
+        if (data.personalInfo.photo && data.personalInfo.photo.startsWith('data:')) {
+          // Photo is already a data URL, ensure it's properly embedded
+          resumeHTML = resumeHTML.replace(
+            /src="[^"]*"/g,
+            `src="${data.personalInfo.photo}"`
+          );
+        } else if (data.personalInfo.photo && !data.personalInfo.photo.startsWith('data:')) {
+          // Photo is a regular URL, convert to data URL
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx?.drawImage(img, 0, 0);
+            const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+            
             resumeHTML = resumeHTML.replace(
-              new RegExp(`src="${data.personalInfo.photo}"`, 'g'),
-              `src="${data.personalInfo.photo}"`
+              /src="[^"]*"/g,
+              `src="${dataURL}"`
             );
-          }
+            writeToWindow();
+          };
+          img.onerror = function() {
+            // If image fails to load, proceed without it
+            writeToWindow();
+          };
+          img.src = data.personalInfo.photo;
+          return;
         }
         
         writeToWindow();
@@ -99,6 +107,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
                   img {
                     max-width: 100% !important;
                     height: auto !important;
+                    display: block !important;
                   }
                   
                   /* Include all Tailwind CSS classes used in templates */
@@ -158,22 +167,34 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
       setTimeout(() => {
         let resumeHTML = tempDiv.innerHTML;
         
-        // Handle image data URLs for preview
-        if (data.personalInfo.photo) {
-          const photoValue = data.personalInfo.photo as any;
-          if (photoValue && typeof photoValue === 'object' && photoValue instanceof File) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-              const imageDataUrl = e.target?.result as string;
-              resumeHTML = resumeHTML.replace(
-                /src="[^"]*"/g, 
-                (match) => match.includes('data:') ? match : `src="${imageDataUrl}"`
-              );
-              writeToPreviewWindow();
-            };
-            reader.readAsDataURL(photoValue);
-            return;
-          }
+        // Handle image embedding for preview - same logic as print
+        if (data.personalInfo.photo && data.personalInfo.photo.startsWith('data:')) {
+          resumeHTML = resumeHTML.replace(
+            /src="[^"]*"/g,
+            `src="${data.personalInfo.photo}"`
+          );
+        } else if (data.personalInfo.photo && !data.personalInfo.photo.startsWith('data:')) {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx?.drawImage(img, 0, 0);
+            const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+            
+            resumeHTML = resumeHTML.replace(
+              /src="[^"]*"/g,
+              `src="${dataURL}"`
+            );
+            writeToPreviewWindow();
+          };
+          img.onerror = function() {
+            writeToPreviewWindow();
+          };
+          img.src = data.personalInfo.photo;
+          return;
         }
         
         writeToPreviewWindow();
@@ -210,6 +231,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
                   img {
                     max-width: 100% !important;
                     height: auto !important;
+                    display: block !important;
                   }
                   
                   ${getTailwindStyles()}
