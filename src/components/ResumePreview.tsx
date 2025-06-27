@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { ResumeData, Template } from '@/types/resume';
 import { Button } from '@/components/ui/button';
@@ -129,102 +130,108 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
     const previewWindow = window.open('', '_blank');
     if (!previewWindow) return;
 
-    const tempDiv = document.createElement('div');
-    document.body.appendChild(tempDiv);
-    
     try {
-      const { createRoot } = await import('react-dom/client');
-      const root = createRoot(tempDiv);
-      root.render(React.createElement(TemplateComponent, { data }));
+      // Create a temporary container in the current document
+      const tempContainer = document.createElement('div');
+      tempContainer.style.position = 'absolute';
+      tempContainer.style.left = '-9999px';
+      tempContainer.style.top = '0';
+      document.body.appendChild(tempContainer);
       
-      // Increased timeout and added multiple checks to ensure content is rendered
-      setTimeout(async () => {
-        // Wait for the component to fully render
-        await new Promise(resolve => {
-          const checkContent = () => {
-            if (tempDiv.innerHTML && tempDiv.innerHTML.length > 100) {
-              resolve(true);
-            } else {
-              setTimeout(checkContent, 100);
-            }
-          };
-          checkContent();
-        });
-
-        let resumeHTML = tempDiv.innerHTML;
-        console.log('Resume HTML length:', resumeHTML.length); // Debug log
-        
-        // Handle image conversion if photo exists and it's not already a data URL
-        if (data.personalInfo.photo && !data.personalInfo.photo.startsWith('data:')) {
-          try {
-            const dataURL = await convertImageToDataURL(data.personalInfo.photo);
-            resumeHTML = resumeHTML.replace(
-              /src="[^"]*"/g,
-              `src="${dataURL}"`
-            );
-          } catch (error) {
-            console.log('Failed to convert image for preview');
-          }
+      // Render the template component directly to the temp container
+      const { createRoot } = await import('react-dom/client');
+      const root = createRoot(tempContainer);
+      
+      // Render and wait for completion
+      await new Promise<void>((resolve) => {
+        root.render(React.createElement(TemplateComponent, { data }));
+        // Wait for the DOM to be updated
+        setTimeout(resolve, 500);
+      });
+      
+      // Get the rendered HTML
+      let resumeHTML = tempContainer.innerHTML;
+      console.log('Generated HTML length:', resumeHTML.length);
+      
+      // Handle image conversion if photo exists and it's not already a data URL
+      if (data.personalInfo.photo && !data.personalInfo.photo.startsWith('data:')) {
+        try {
+          const dataURL = await convertImageToDataURL(data.personalInfo.photo);
+          resumeHTML = resumeHTML.replace(
+            new RegExp(data.personalInfo.photo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
+            dataURL
+          );
+        } catch (error) {
+          console.log('Failed to convert image for preview:', error);
         }
-        
-        const htmlContent = `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>Resume Preview - ${data.personalInfo.fullName}</title>
-              <style>
-                * {
-                  margin: 0;
-                  padding: 0;
-                  box-sizing: border-box;
-                }
-                
-                body {
-                  margin: 20px;
-                  font-family: system-ui, -apple-system, sans-serif;
-                  background: #f5f5f5;
-                  display: flex;
-                  justify-content: center;
-                  align-items: flex-start;
-                  min-height: 100vh;
-                }
-                
-                .preview-container {
-                  background: white;
-                  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                  margin: 20px;
-                }
-                
-                img {
-                  max-width: 100% !important;
-                  height: auto !important;
-                  display: block !important;
-                }
-                
-                ${getTailwindStyles()}
-              </style>
-            </head>
-            <body>
-              <div class="preview-container">
-                ${resumeHTML}
-              </div>
-            </body>
-          </html>
-        `;
-        
-        previewWindow.document.write(htmlContent);
-        previewWindow.document.close();
-        document.body.removeChild(tempDiv);
-        
-        // Focus the window after a brief delay
-        setTimeout(() => {
-          previewWindow.focus();
-        }, 100);
-        
-      }, 1000); // Increased timeout to 1000ms
+      }
+      
+      // Clean up the temporary container
+      root.unmount();
+      document.body.removeChild(tempContainer);
+      
+      // Write the complete HTML to the preview window
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Resume Preview - ${data.personalInfo.fullName}</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+              * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+              
+              body {
+                margin: 20px;
+                font-family: system-ui, -apple-system, sans-serif;
+                background: #f5f5f5;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                min-height: 100vh;
+              }
+              
+              .preview-container {
+                background: white;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                margin: 20px;
+                max-width: 100%;
+              }
+              
+              img {
+                max-width: 100% !important;
+                height: auto !important;
+                display: block !important;
+              }
+              
+              ${getTailwindStyles()}
+            </style>
+          </head>
+          <body>
+            <div class="preview-container">
+              ${resumeHTML}
+            </div>
+          </body>
+        </html>
+      `;
+      
+      previewWindow.document.write(htmlContent);
+      previewWindow.document.close();
+      
+      // Focus the window after content is loaded
+      setTimeout(() => {
+        previewWindow.focus();
+      }, 100);
+      
     } catch (error) {
       console.error('Error during preview:', error);
-      document.body.removeChild(tempDiv);
+      if (previewWindow) {
+        previewWindow.close();
+      }
     }
   };
 
