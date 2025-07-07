@@ -11,6 +11,15 @@ export const CleanBWTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-white p-10 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black font-light">
       {/* Header */}
       <div className="text-center mb-10">
+        {data.personalInfo.photo && (
+          <div className="w-32 h-32 mx-auto mb-6">
+            <img 
+              src={data.personalInfo.photo} 
+              alt={`${data.personalInfo.fullName} photo`}
+              className="w-full h-full object-cover rounded-full shadow-md"
+            />
+          </div>
+        )}
         <h1 className="text-4xl font-thin mb-3 tracking-wider">{data.personalInfo.fullName}</h1>
         <div className="flex justify-center space-x-3 text-sm">
           <span>{data.personalInfo.email}</span>

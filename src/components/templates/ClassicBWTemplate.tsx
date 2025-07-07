@@ -11,6 +11,15 @@ export const ClassicBWTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-white p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black">
       {/* Header */}
       <div className="text-center border-b-2 border-black pb-4 mb-6">
+        {data.personalInfo.photo && (
+          <div className="w-24 h-24 mx-auto mb-4">
+            <img 
+              src={data.personalInfo.photo} 
+              alt={`${data.personalInfo.fullName} photo`}
+              className="w-full h-full object-cover rounded-full shadow-md border-2 border-black"
+            />
+          </div>
+        )}
         <h1 className="text-3xl font-bold mb-2">{data.personalInfo.fullName}</h1>
         <div className="text-sm flex justify-center space-x-4">
           <span>{data.personalInfo.email}</span>

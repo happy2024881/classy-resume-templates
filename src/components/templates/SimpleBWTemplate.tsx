@@ -10,19 +10,30 @@ export const SimpleBWTemplate: React.FC<TemplateProps> = ({ data }) => {
   return (
     <div className="bg-white p-12 min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-5xl font-light mb-4">{data.personalInfo.fullName}</h1>
-        <div className="text-sm grid grid-cols-2 gap-8">
-          <div>
-            <div>📧 {data.personalInfo.email}</div>
-            <div>📱 {data.personalInfo.phone}</div>
-            <div>📍 {data.personalInfo.location}</div>
-          </div>
-          <div>
-            {data.personalInfo.linkedIn && <div>💼 {data.personalInfo.linkedIn}</div>}
-            {data.personalInfo.website && <div>🌐 {data.personalInfo.website}</div>}
+      <div className="mb-8 flex gap-8">
+        <div className="flex-1">
+          <h1 className="text-5xl font-light mb-4">{data.personalInfo.fullName}</h1>
+          <div className="text-sm grid grid-cols-2 gap-8">
+            <div>
+              <div>📧 {data.personalInfo.email}</div>
+              <div>📱 {data.personalInfo.phone}</div>
+              <div>📍 {data.personalInfo.location}</div>
+            </div>
+            <div>
+              {data.personalInfo.linkedIn && <div>💼 {data.personalInfo.linkedIn}</div>}
+              {data.personalInfo.website && <div>🌐 {data.personalInfo.website}</div>}
+            </div>
           </div>
         </div>
+        {data.personalInfo.photo && (
+          <div className="w-32 h-32 flex-shrink-0">
+            <img 
+              src={data.personalInfo.photo} 
+              alt={`${data.personalInfo.fullName} photo`}
+              className="w-full h-full object-cover rounded-lg shadow-md"
+            />
+          </div>
+        )}
       </div>
 
       {/* Summary */}
