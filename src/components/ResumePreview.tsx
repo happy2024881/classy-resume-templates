@@ -48,16 +48,23 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
       setTimeout(async () => {
         let resumeHTML = tempDiv.innerHTML;
         
-        // Handle image conversion if photo exists and it's not already a data URL
-        if (data.personalInfo.photo && !data.personalInfo.photo.startsWith('data:')) {
+        // Handle image conversion if photo exists
+        if (data.personalInfo.photo) {
           try {
-            const dataURL = await convertImageToDataURL(data.personalInfo.photo);
+            let imageDataURL;
+            if (data.personalInfo.photo.startsWith('data:')) {
+              imageDataURL = data.personalInfo.photo;
+            } else {
+              imageDataURL = await convertImageToDataURL(data.personalInfo.photo);
+            }
+            
+            // Replace all image sources with the data URL
             resumeHTML = resumeHTML.replace(
               /src="[^"]*"/g,
-              `src="${dataURL}"`
+              `src="${imageDataURL}"`
             );
           } catch (error) {
-            console.log('Failed to convert image for printing');
+            console.log('Failed to convert image for printing', error);
           }
         }
         
@@ -80,9 +87,16 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
                 }
                 
                 @media print {
+                  @page {
+                    margin: 0;
+                    size: A4;
+                  }
+                  
                   body {
                     margin: 0 !important;
                     padding: 0 !important;
+                    -webkit-print-color-adjust: exact !important;
+                    color-adjust: exact !important;
                   }
                   
                   .print-container {
@@ -194,14 +208,20 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
         
         // Process image if needed
         let processedData = { ...data };
-        if (data.personalInfo.photo && !data.personalInfo.photo.startsWith('data:')) {
+        if (data.personalInfo.photo) {
           try {
-            const dataURL = await convertImageToDataURL(data.personalInfo.photo);
+            let imageDataURL;
+            if (data.personalInfo.photo.startsWith('data:')) {
+              imageDataURL = data.personalInfo.photo;
+            } else {
+              imageDataURL = await convertImageToDataURL(data.personalInfo.photo);
+            }
+            
             processedData = {
               ...data,
               personalInfo: {
                 ...data.personalInfo,
-                photo: dataURL
+                photo: imageDataURL
               }
             };
           } catch (error) {
