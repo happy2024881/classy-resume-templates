@@ -15,6 +15,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
 
   const convertImageToDataURL = (imageUrl: string): Promise<string> => {
     return new Promise((resolve, reject) => {
+      // If it's already a data URL, return it
+      if (imageUrl.startsWith('data:')) {
+        resolve(imageUrl);
+        return;
+      }
+
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = function() {
@@ -27,6 +33,7 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
         resolve(dataURL);
       };
       img.onerror = function() {
+        console.error('Failed to load image:', imageUrl);
         reject(new Error('Failed to load image'));
       };
       img.src = imageUrl;
@@ -265,6 +272,12 @@ export const ResumePreview: React.FC<ResumePreviewProps> = ({ data, selectedTemp
       <div className="border rounded-lg overflow-hidden bg-gray-100 p-4">
         <div className="transform scale-75 origin-top-left bg-white shadow-lg" style={{ width: '133.33%', height: '133.33%' }}>
           <TemplateComponent data={data} />
+          {/* Debug info */}
+          {data.personalInfo.photo && (
+            <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'red', color: 'white', padding: '5px', fontSize: '12px' }}>
+              Photo: {data.personalInfo.photo.substring(0, 50)}...
+            </div>
+          )}
         </div>
       </div>
 
