@@ -12,6 +12,15 @@ export const CreativeTemplate: React.FC<TemplateProps> = ({ data }) => {
       {/* Sidebar */}
       <div className="w-1/3 bg-gradient-to-b from-purple-600 to-pink-600 text-white p-6">
         <div className="mb-8">
+          {data.personalInfo.photo && (
+            <div className="mb-4 text-center">
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-20 h-20 rounded-full object-cover border-4 border-white mx-auto"
+              />
+            </div>
+          )}
           <h1 className="text-2xl font-bold mb-2">{data.personalInfo.fullName}</h1>
           <div className="text-sm space-y-1 opacity-90">
             <div>{data.personalInfo.email}</div>

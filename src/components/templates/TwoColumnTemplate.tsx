@@ -12,11 +12,21 @@ export const TwoColumnTemplate: React.FC<TemplateProps> = ({ data }) => {
       {/* Left Sidebar */}
       <div className="w-1/3 bg-gray-800 text-white p-6">
         <div className="mb-8">
-          <div className="w-24 h-24 bg-gray-600 rounded-full flex items-center justify-center mb-4 mx-auto">
-            <span className="text-2xl font-bold">
-              {data.personalInfo.fullName.split(' ').map(n => n[0]).join('')}
-            </span>
-          </div>
+          {data.personalInfo.photo ? (
+            <div className="w-24 h-24 mx-auto mb-4">
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-full h-full rounded-full object-cover border-4 border-gray-600"
+              />
+            </div>
+          ) : (
+            <div className="w-24 h-24 bg-gray-600 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <span className="text-2xl font-bold">
+                {data.personalInfo.fullName.split(' ').map(n => n[0]).join('')}
+              </span>
+            </div>
+          )}
           <h1 className="text-xl font-bold text-center mb-4">{data.personalInfo.fullName}</h1>
         </div>
 

@@ -24,6 +24,15 @@ export const CompactTemplate: React.FC<TemplateProps> = ({ data }) => {
             </div>
           )}
         </div>
+        {data.personalInfo.photo && (
+          <div className="ml-4">
+            <img
+              src={data.personalInfo.photo}
+              alt="Profile"
+              className="w-16 h-16 rounded object-cover border-2 border-gray-300"
+            />
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-3 gap-6">

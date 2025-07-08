@@ -30,9 +30,19 @@ export const ElegantTemplate: React.FC<TemplateProps> = ({ data }) => {
               )}
             </div>
           </div>
-          <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
-            <div className="text-2xl font-serif">{data.personalInfo.fullName.split(' ').map(n => n[0]).join('')}</div>
-          </div>
+          {data.personalInfo.photo ? (
+            <div className="w-20 h-20">
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-full h-full rounded-full object-cover border-4 border-white"
+              />
+            </div>
+          ) : (
+            <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
+              <div className="text-2xl font-serif">{data.personalInfo.fullName.split(' ').map(n => n[0]).join('')}</div>
+            </div>
+          )}
         </div>
       </div>
 

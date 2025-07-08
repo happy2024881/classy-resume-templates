@@ -11,6 +11,15 @@ export const BoldTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-black text-white p-8 min-h-[11in] w-[8.5in] mx-auto shadow-lg">
       {/* Header */}
       <div className="text-center mb-8 pb-8 border-b-2 border-white">
+        {data.personalInfo.photo && (
+          <div className="mb-4">
+            <img
+              src={data.personalInfo.photo}
+              alt="Profile"
+              className="w-24 h-24 rounded-full object-cover border-4 border-white mx-auto"
+            />
+          </div>
+        )}
         <h1 className="text-5xl font-black uppercase tracking-wider mb-4">{data.personalInfo.fullName}</h1>
         <div className="text-lg space-x-6">
           <span>{data.personalInfo.email}</span>

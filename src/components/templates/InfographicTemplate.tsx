@@ -12,15 +12,26 @@ export const InfographicTemplate: React.FC<TemplateProps> = ({ data }) => {
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white p-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative z-10">
-          <h1 className="text-3xl font-bold mb-2">{data.personalInfo.fullName}</h1>
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div>📧 {data.personalInfo.email}</div>
-            <div>📱 {data.personalInfo.phone}</div>
-            <div>📍 {data.personalInfo.location}</div>
-            {data.personalInfo.linkedIn && <div>💼 {data.personalInfo.linkedIn}</div>}
-            {data.personalInfo.website && <div>🌐 {data.personalInfo.website}</div>}
+        <div className="relative z-10 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">{data.personalInfo.fullName}</h1>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>📧 {data.personalInfo.email}</div>
+              <div>📱 {data.personalInfo.phone}</div>
+              <div>📍 {data.personalInfo.location}</div>
+              {data.personalInfo.linkedIn && <div>💼 {data.personalInfo.linkedIn}</div>}
+              {data.personalInfo.website && <div>🌐 {data.personalInfo.website}</div>}
+            </div>
           </div>
+          {data.personalInfo.photo && (
+            <div className="ml-6">
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-20 h-20 rounded-full object-cover border-4 border-white"
+              />
+            </div>
+          )}
         </div>
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>

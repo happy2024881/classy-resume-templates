@@ -11,15 +11,28 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data }) => {
     <div className="bg-white min-h-[11in] w-[8.5in] mx-auto shadow-lg text-black">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8">
-        <h1 className="text-4xl font-light mb-2">{data.personalInfo.fullName}</h1>
-        <div className="text-sm opacity-90 space-y-1">
-          <div>{data.personalInfo.email} | {data.personalInfo.phone}</div>
-          <div>{data.personalInfo.location}</div>
-          {(data.personalInfo.linkedIn || data.personalInfo.website) && (
-            <div>
-              {data.personalInfo.linkedIn && <span>{data.personalInfo.linkedIn}</span>}
-              {data.personalInfo.website && data.personalInfo.linkedIn && <span> | </span>}
-              {data.personalInfo.website && <span>{data.personalInfo.website}</span>}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-light mb-2">{data.personalInfo.fullName}</h1>
+            <div className="text-sm opacity-90 space-y-1">
+              <div>{data.personalInfo.email} | {data.personalInfo.phone}</div>
+              <div>{data.personalInfo.location}</div>
+              {(data.personalInfo.linkedIn || data.personalInfo.website) && (
+                <div>
+                  {data.personalInfo.linkedIn && <span>{data.personalInfo.linkedIn}</span>}
+                  {data.personalInfo.website && data.personalInfo.linkedIn && <span> | </span>}
+                  {data.personalInfo.website && <span>{data.personalInfo.website}</span>}
+                </div>
+              )}
+            </div>
+          </div>
+          {data.personalInfo.photo && (
+            <div className="ml-6">
+              <img
+                src={data.personalInfo.photo}
+                alt="Profile"
+                className="w-24 h-24 rounded object-cover border-4 border-white"
+              />
             </div>
           )}
         </div>
